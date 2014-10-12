@@ -1,7 +1,8 @@
 package com.github.tempest200903.ganttchart.entity;
 
-import lombok.Data;
+import java.util.List;
 
+import lombok.Data;
 
 /**
  * ガント。
@@ -15,6 +16,6 @@ public class GanttEntity {
 	/**
 	 * タスク。
 	 */
-	private TaskEntity taskEntity;
+	private List<TaskEntity> taskEntity;
 
 }

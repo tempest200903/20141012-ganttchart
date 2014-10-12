@@ -1,6 +1,7 @@
 package com.github.tempest200903.ganttchart.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -29,8 +30,8 @@ import lombok.NonNull;
  TaskCalendarEntity taskCalendar;
  }
 
- ProjectEntity "1" o- "1" GanttEntity
- GanttEntity "1" o- "1" TaskEntity
+ ProjectEntity "1" o- "1..*" GanttEntity
+ GanttEntity "1" o- "1..*" TaskEntity
 
  }
  @enduml
@@ -61,6 +62,6 @@ public class ProjectEntity {
 	 * ガント。
 	 */
 	@NonNull
-	private GanttEntity ganttEntity;
+	private List<GanttEntity> ganttEntityList;
 
 }
