@@ -3,6 +3,7 @@ package com.github.tempest200903.ganttchart.entity;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.NonNull;
 
 /**
  * タスク。
@@ -11,31 +12,36 @@ import lombok.Data;
  *
  */
 @Data
-class TaskEntity {
+public class TaskEntity {
 
 	/**
 	 * 名前。
 	 */
+	@NonNull
 	private String name;
 
 	/**
 	 * 作業時間。
 	 */
+	@NonNull
 	private int workTime;
 
 	/**
 	 * 開始日付。
 	 */
+	@NonNull
 	private Date beginDate;
 
 	/**
 	 * 終了日付。
 	 */
+	@NonNull
 	private Date endDate;
 
 	/**
 	 * 制約の種類。
 	 */
+	@NonNull
 	private TaskConstraintType constraintType;
 
 	/**
@@ -51,6 +57,7 @@ class TaskEntity {
 	/**
 	 * タスクカレンダー。
 	 */
+	@NonNull
 	private TaskCalendarEntity taskCalendar;
 
 }

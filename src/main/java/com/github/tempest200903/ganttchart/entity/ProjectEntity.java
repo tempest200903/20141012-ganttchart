@@ -50,18 +50,17 @@ public class ProjectEntity {
 	 * 名前。
 	 */
 	@NonNull
-	private String name;
-
+	public String name;
 	/**
 	 * 開始日付。
 	 */
 	@NonNull
-	private Date beginDate;
+	public Date beginDate;
 
 	/**
 	 * ガント。
 	 */
 	@NonNull
-	private List<GanttEntity> ganttEntityList;
+	public List<GanttEntity> ganttEntityList;
 
 }

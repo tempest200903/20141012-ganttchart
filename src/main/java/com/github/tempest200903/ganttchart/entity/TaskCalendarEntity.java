@@ -5,7 +5,5 @@ package com.github.tempest200903.ganttchart.entity;
  * @author tempest200903
  *
  */
-class TaskCalendarEntity {
-
-	
+public class TaskCalendarEntity {
 }

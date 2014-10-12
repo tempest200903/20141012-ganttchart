@@ -22,11 +22,9 @@ import javax.swing.JFrame;
  ApplicationMain "1" o- "1" MainFrame
  MainFrame "1" o- "1" ProjectFrame
  ProjectFrame "1" o- "1..*" GanttFrame
- GanttFrame "1" o- "1..*" TaskFrame
 
  ProjectFrame "1" o- "1" ProjectEntity
  GanttFrame "1" o- "1" GanttEntity
- TaskFrame "1" o- "1" TaskEntity
 
  }
  @enduml

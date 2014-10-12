@@ -1,7 +1,6 @@
 package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.BorderLayout;
-import java.awt.LayoutManager;
 import java.util.List;
 
 import javax.swing.JDesktopPane;

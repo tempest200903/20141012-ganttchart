@@ -14,6 +14,9 @@ import javax.swing.JFrame;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
 import com.github.tempest200903.ganttchart.entity.ProjectEntity;
+import com.github.tempest200903.ganttchart.entity.TaskCalendarEntity;
+import com.github.tempest200903.ganttchart.entity.TaskConstraintType;
+import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
 @SuppressWarnings("unused")
@@ -50,11 +53,25 @@ class MainFrame extends JFrame {
 		return desktop;
 	}
 
+	private GanttEntity createGanttEntity() {
+		List<TaskEntity> taskEntityList = Lists.newArrayList(
+				createTaskEntity(), createTaskEntity(), createTaskEntity(),
+				createTaskEntity(), createTaskEntity(), createTaskEntity(),
+				createTaskEntity(), createTaskEntity());
+		GanttEntity ganttEntity = new GanttEntity(taskEntityList);
+		return ganttEntity;
+	}
+
+	private List<GanttEntity> createGanttEntityList() {
+		GanttEntity ganttEntity = createGanttEntity();
+		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
+		return ganttEntityList;
+	}
+
 	private ProjectEntity createProjectEntity() {
 		String name = "project1";
 		Date beginDate = createBeginDate();
-		GanttEntity ganttEntity = new GanttEntity();
-		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
+		List<GanttEntity> ganttEntityList = createGanttEntityList();
 		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
 				ganttEntityList);
 		return projectEntity;
@@ -71,6 +88,19 @@ class MainFrame extends JFrame {
 		projectFrame.setResizable(true);
 		projectFrame.setTitle(projectEntity.getName());
 		return projectFrame;
+	}
+
+	private TaskEntity createTaskEntity() {
+		String name = "task" + System.currentTimeMillis();
+		int workTime = 1;
+		Date beginDate = createBeginDate();
+		Date endDate = createBeginDate();
+		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
+		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
+
+		TaskEntity taskEntity = new TaskEntity(name, workTime, beginDate,
+				endDate, constraintType, taskCalendar);
+		return taskEntity;
 	}
 
 	private void initialize() {
