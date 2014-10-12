@@ -49,6 +49,7 @@
        <include>**/*.java</include>
       </includes>
      </sourceFiles>
+     <charset>UTF-8</charset>
     </configuration>
     <executions>
      <execution>

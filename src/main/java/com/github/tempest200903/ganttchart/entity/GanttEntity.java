@@ -2,6 +2,7 @@ package com.github.tempest200903.ganttchart.entity;
 
 import lombok.Data;
 
+
 /**
  * ガント。
  * 
@@ -17,4 +18,3 @@ public class GanttEntity {
 	private TaskEntity taskEntity;
 
 }
-
