@@ -17,3 +17,4 @@ public class GanttEntity {
 	private TaskEntity taskEntity;
 
 }
+

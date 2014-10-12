@@ -1,6 +1,6 @@
 package com.github.tempest200903.ganttchart.entity;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -26,12 +26,12 @@ class TaskEntity {
 	/**
 	 * 開始日付。
 	 */
-	private ZonedDateTime beginDate;
+	private Date beginDate;
 
 	/**
 	 * 終了日付。
 	 */
-	private ZonedDateTime endDate;
+	private Date endDate;
 
 	/**
 	 * 制約の種類。
@@ -41,12 +41,12 @@ class TaskEntity {
 	/**
 	 * 制約の指定日。
 	 */
-	private ZonedDateTime constraintDate;
+	private Date constraintDate;
 
 	/**
 	 * 期限。
 	 */
-	private ZonedDateTime deadline;
+	private Date deadline;
 
 	/**
 	 * タスクカレンダー。

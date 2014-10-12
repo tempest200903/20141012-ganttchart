@@ -3,6 +3,18 @@ package com.github.tempest200903.ganttchart.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+/*
+ * @startuml Main.puml.png
+ * Bob -> Alice : hello
+ * Alice --> Bob : OK
+ * @enduml
+ */
+
+/**
+ * 
+ * @author tempest200903
+ *
+ */
 class Main {
 
 	public static void main(String[] args) {

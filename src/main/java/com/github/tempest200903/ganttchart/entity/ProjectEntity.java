@@ -1,6 +1,7 @@
 package com.github.tempest200903.ganttchart.entity;
 
-import java.time.ZonedDateTime;
+
+import java.util.Date;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -23,7 +24,7 @@ public class ProjectEntity {
 	 * 開始日付。
 	 */
 	@NonNull
-	private ZonedDateTime beginDate;
+	private Date beginDate;
 	
 	/**
 	 * ガント。

@@ -1,0 +1,76 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building 20141012-ganttchart 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-help-plugin:2.2:describe (default-cli) @ 20141012-ganttchart ---
+[INFO] com.github.jeluard:plantuml-maven-plugin:7954
+
+Name: Maven PlantUML plugin
+Description: A maven plugin to generate UML diagrams using PlantUML syntax
+Group Id: com.github.jeluard
+Artifact Id: plantuml-maven-plugin
+Version: 7954
+Goal Prefix: plantuml
+
+This plugin has 1 goal:
+
+plantuml:generate
+  Description: (no description available)
+  Implementation: com.github.plantuml.maven.PlantUMLMojo
+  Language: java
+  Bound to phase: generate-resources
+
+  Available parameters:
+
+    charset
+      User property: plantuml.charset
+      Charset used during generation.
+
+    config
+      User property: plantuml.config
+      External configuration file location.
+
+    format
+      User property: plantuml.format
+      Specify output format. Supported values: xmi, xmi:argo, xmi:start, eps,
+      pdf, eps:txt, svg, png, dot, txt and utxt.
+
+    graphvizDot
+      User property: plantuml.graphvizDot
+      Fully qualified path to Graphviz home directory.
+
+    keepTmpFiles (Default: false)
+      User property: plantuml.keepTmpFiles
+      Wether or not to keep tmp files after generation.
+
+    outputDirectory (Default: ${basedir}/target/plantuml)
+      Required: true
+      User property: plantuml.outputDirectory
+      Directory where generated images are generated.
+
+    outputInSourceDirectory (Default: false)
+      User property: plantuml.outputInSourceDirectory
+      Whether or not to generate images in same directory as the source file.
+      This is useful for using PlantUML diagrams in Javadoc, as described here:
+      http://plantuml.sourceforge.net/javadoc.html. If this is set to true then
+      outputDirectory is ignored.
+
+    sourceFiles
+      Required: true
+      User property: plantuml.sourceFiles
+      Fileset to search plantuml diagrams in.
+
+    verbose (Default: false)
+      User property: plantuml.verbose
+      Wether or not to output details during generation.
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.176s
+[INFO] Finished at: Sun Oct 12 21:43:44 JST 2014
+[INFO] Final Memory: 9M/245M
+[INFO] ------------------------------------------------------------------------

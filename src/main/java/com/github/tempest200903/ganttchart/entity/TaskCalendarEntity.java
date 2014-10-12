@@ -7,4 +7,5 @@ package com.github.tempest200903.ganttchart.entity;
  */
 class TaskCalendarEntity {
 
+	
 }

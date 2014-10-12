@@ -2,8 +2,9 @@ package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -27,10 +28,16 @@ class MainFrame extends JFrame {
 		initialize();
 	}
 
+	private Date createBeginDate() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		calendar.set(2014, 2, 3);
+		Date beginDate = calendar.getTime();
+		return beginDate;
+	}
+
 	private ProjectEntity createProjectEntity() {
 		String name = "project1";
-		ZonedDateTime beginDate = ZonedDateTime.of(2014, 1, 1, 0, 0, 0, 0,
-				ZoneId.of("Asia/Tokyo"));
+		Date beginDate = createBeginDate();
 		GanttEntity ganttEntity = new GanttEntity();
 		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
 				ganttEntity);

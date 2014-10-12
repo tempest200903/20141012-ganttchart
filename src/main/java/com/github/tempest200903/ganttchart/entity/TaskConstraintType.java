@@ -7,7 +7,7 @@ package com.github.tempest200903.ganttchart.entity;
  *
  */
 public enum TaskConstraintType {
-
+	
 	/**
 	 * できるだけ早く
 	 */

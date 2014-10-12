@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="plantuml" name="build">
+
  <target name="plantuml">
+  <exec executable="cmd">
+   <arg line="/c C:\tool\Maven\apache-maven-3.1.1\bin\mvn.bat -X clean compile com.github.jeluard:plantuml-maven-plugin:generate" />
+  </exec>
  </target>
+
+ <target name="compile">
+  <exec executable="cmd">
+   <arg line="/c C:\tool\Maven\apache-maven-3.1.1\bin\mvn.bat -X clean compile" />
+  </exec>
+ </target>
+
 </project>
