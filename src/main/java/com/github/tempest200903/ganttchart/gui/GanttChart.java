@@ -81,4 +81,21 @@ class GanttChart extends JComponent {
 		}
 	}
 
+	/**
+	 * ズームインする。
+	 */
+	void zoomIn() {
+		// TODO Auto-generated method stub
+		System.out.println("zoomIn");
+	}
+
+	/**
+	 * ズームアウトする。
+	 */
+	void zoomOut() {
+		// TODO Auto-generated method stub
+		System.out.println("zoomOut");
+
+	}
+
 }

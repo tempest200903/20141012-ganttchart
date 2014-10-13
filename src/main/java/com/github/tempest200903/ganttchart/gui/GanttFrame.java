@@ -2,15 +2,19 @@ package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
@@ -38,21 +42,57 @@ class GanttFrame extends JInternalFrame {
 
 	private GanttEntity ganttEntity;
 
+	private GanttChart ganttChart;
+
+	private TextAction zoomOutAction = new TextAction("zoom out") {
+		/** . */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ganttChart.zoomOut();
+		}
+	};
+	private TextAction zoomInAction = new TextAction("zoom in") {
+		/** . */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ganttChart.zoomIn();
+		}
+	};
+
 	public GanttFrame(GanttEntity ganttEntity) {
 		super();
 		this.ganttEntity = ganttEntity;
+
+		ganttChart = new GanttChart(ganttEntity);
+
 		setTitle("Gantt");
 		setLayout(new BorderLayout());
 
 		JSplitPane splitPane = createSplitPane();
 		getContentPane().add(splitPane);
+
+		JMenuBar menubar = createMenuBar();
+		setJMenuBar(menubar);
+	}
+
+	private JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenuItem zoomOutMenu = new JMenuItem(zoomOutAction);
+		JMenuItem zoomInMenu = new JMenuItem(zoomInAction);
+		menuBar.add(zoomOutMenu);
+		menuBar.add(zoomInMenu);
+		return menuBar;
 	}
 
 	private JSplitPane createSplitPane() {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JComponent tablePane = createTablePane();
 		splitPane.add(tablePane);
-		splitPane.add(new GanttChart(ganttEntity));
+		splitPane.add(ganttChart);
 		splitPane.setDividerLocation(600);
 		return splitPane;
 	}
