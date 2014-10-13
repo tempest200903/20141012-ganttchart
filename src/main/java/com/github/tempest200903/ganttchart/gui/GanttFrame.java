@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -53,7 +52,7 @@ class GanttFrame extends JInternalFrame {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JComponent tablePane = createTablePane();
 		splitPane.add(tablePane);
-		splitPane.add(new JLabel("dummy"));
+		splitPane.add(new GanttChart(ganttEntity));
 		splitPane.setDividerLocation(600);
 		return splitPane;
 	}

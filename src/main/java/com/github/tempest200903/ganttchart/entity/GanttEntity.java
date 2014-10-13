@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
  */
 @Data
 public class GanttEntity {
-
+	
 	static Date createBeginDate() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		calendar.set(2014, 2, 3);
@@ -47,10 +47,17 @@ public class GanttEntity {
 		return taskEntity;
 	}
 
+	private ProjectEntity projectEntity;
+
 	/**
 	 * タスク。
 	 */
 	@NonNull
 	private List<TaskEntity> taskEntityList;
+
+	public GanttEntity(List<TaskEntity> taskEntityList) {
+		super();
+		this.taskEntityList = taskEntityList;
+	}
 
 }

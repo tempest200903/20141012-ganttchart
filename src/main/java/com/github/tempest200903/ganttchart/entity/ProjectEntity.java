@@ -53,6 +53,7 @@ public class ProjectEntity {
 		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
 		return ganttEntityList;
 	}
+
 	public static ProjectEntity createProjectEntity() {
 		String name = "project1";
 		Date beginDate = GanttEntity.createBeginDate();
@@ -73,11 +74,22 @@ public class ProjectEntity {
 	 */
 	@NonNull
 	public Date beginDate;
-	
+
 	/**
 	 * ガント。
 	 */
 	@NonNull
 	public List<GanttEntity> ganttEntityList;
+
+	public ProjectEntity(String name, Date beginDate,
+			List<GanttEntity> ganttEntityList) {
+		super();
+		this.name = name;
+		this.beginDate = beginDate;
+		this.ganttEntityList = ganttEntityList;
+		for (GanttEntity ganttEntity : ganttEntityList) {
+			ganttEntity.setProjectEntity(this);
+		}
+	}
 
 }
