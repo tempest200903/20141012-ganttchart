@@ -6,6 +6,8 @@ import java.util.List;
 import lombok.Data;
 import lombok.NonNull;
 
+import com.google.common.collect.Lists;
+
 /*
  @startuml ProjectEntity.puml.png
  title ClassDiagram ProjectEntity
@@ -46,17 +48,32 @@ import lombok.NonNull;
 @Data
 public class ProjectEntity {
 
+	private static List<GanttEntity> createGanttEntityList() {
+		GanttEntity ganttEntity = GanttEntity.createSampleGanttEntity();
+		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
+		return ganttEntityList;
+	}
+	public static ProjectEntity createProjectEntity() {
+		String name = "project1";
+		Date beginDate = GanttEntity.createBeginDate();
+		List<GanttEntity> ganttEntityList = createGanttEntityList();
+		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
+				ganttEntityList);
+		return projectEntity;
+	}
+
 	/**
 	 * 名前。
 	 */
 	@NonNull
 	public String name;
+
 	/**
 	 * 開始日付。
 	 */
 	@NonNull
 	public Date beginDate;
-
+	
 	/**
 	 * ガント。
 	 */

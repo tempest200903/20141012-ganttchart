@@ -39,13 +39,6 @@ class MainFrame extends JFrame {
 		initialize();
 	}
 
-	private Date createBeginDate() {
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		calendar.set(2014, 2, 3);
-		Date beginDate = calendar.getTime();
-		return beginDate;
-	}
-
 	private JDesktopPane createDesktop() {
 		ProjectFrame projectFrame = createProjectFrame();
 		JDesktopPane desktop = new JDesktopPane();
@@ -53,28 +46,14 @@ class MainFrame extends JFrame {
 		return desktop;
 	}
 
-	private GanttEntity createGanttEntity() {
-		List<TaskEntity> taskEntityList = Lists.newArrayList(
-				createTaskEntity(), createTaskEntity(), createTaskEntity(),
-				createTaskEntity(), createTaskEntity(), createTaskEntity(),
-				createTaskEntity(), createTaskEntity());
-		GanttEntity ganttEntity = new GanttEntity(taskEntityList);
-		return ganttEntity;
+	static GanttEntity createSampleGanttEntity() {
+		return GanttEntity.createSampleGanttEntity();
 	}
 
-	private List<GanttEntity> createGanttEntityList() {
-		GanttEntity ganttEntity = createGanttEntity();
-		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
-		return ganttEntityList;
-	}
+	
 
 	private ProjectEntity createProjectEntity() {
-		String name = "project1";
-		Date beginDate = createBeginDate();
-		List<GanttEntity> ganttEntityList = createGanttEntityList();
-		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
-				ganttEntityList);
-		return projectEntity;
+		return ProjectEntity.createProjectEntity();
 	}
 
 	private ProjectFrame createProjectFrame() {
@@ -88,19 +67,6 @@ class MainFrame extends JFrame {
 		projectFrame.setResizable(true);
 		projectFrame.setTitle(projectEntity.getName());
 		return projectFrame;
-	}
-
-	private TaskEntity createTaskEntity() {
-		String name = "task" + System.currentTimeMillis();
-		int workTime = 1;
-		Date beginDate = createBeginDate();
-		Date endDate = createBeginDate();
-		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
-		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
-
-		TaskEntity taskEntity = new TaskEntity(name, beginDate, endDate,
-				constraintType, taskCalendar);
-		return taskEntity;
 	}
 
 	private void initialize() {
