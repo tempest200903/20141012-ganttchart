@@ -23,7 +23,6 @@ public class TaskEntity {
 	/**
 	 * 作業時間。
 	 */
-	@NonNull
 	private int workTime;
 
 	/**

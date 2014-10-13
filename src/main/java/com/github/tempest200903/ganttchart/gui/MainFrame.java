@@ -98,8 +98,8 @@ class MainFrame extends JFrame {
 		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
 		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
 
-		TaskEntity taskEntity = new TaskEntity(name, workTime, beginDate,
-				endDate, constraintType, taskCalendar);
+		TaskEntity taskEntity = new TaskEntity(name, beginDate, endDate,
+				constraintType, taskCalendar);
 		return taskEntity;
 	}
 

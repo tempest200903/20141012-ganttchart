@@ -1,13 +1,15 @@
 package com.github.tempest200903.ganttchart.gui;
 
-import java.awt.GridLayout;
-import java.util.List;
+import java.awt.BorderLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
-import com.github.tempest200903.ganttchart.entity.TaskEntity;
 
 class GanttFrame extends JInternalFrame {
 
@@ -22,14 +24,28 @@ class GanttFrame extends JInternalFrame {
 		super();
 		this.ganttEntity = ganttEntity;
 		setTitle("Gantt");
-		setLayout(new GridLayout(8, 1));
+		setLayout(new BorderLayout());
 
-		List<TaskEntity> list = this.ganttEntity.getTaskEntityList();
-		for (TaskEntity taskEntity : list) {
-			String taskName = taskEntity.getName();
-			JLabel label = new JLabel(taskName);
-			getContentPane().add(label);
-		}
+		JSplitPane splitPane = createSplitPane();
+		getContentPane().add(splitPane);
+	}
+
+	private JSplitPane createSplitPane() {
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JTable table = createTable();
+		splitPane.add(table);
+		splitPane.add(new JLabel("dummy"));
+		splitPane.setDividerLocation(600);
+		return splitPane;
+	}
+
+	private JTable createTable() {
+		TableModel tableModel = new GanttTableModel(this.ganttEntity);
+		TableColumnModel tableColumnModel = new GanttTableColumnModel(
+				this.ganttEntity);
+		JTable table = new JTable(tableModel, tableColumnModel);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		return table;
 	}
 
 }
