@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
  */
 @Data
 public class GanttEntity {
-	
+
 	static Date createBeginDate() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		calendar.set(2014, 2, 3);

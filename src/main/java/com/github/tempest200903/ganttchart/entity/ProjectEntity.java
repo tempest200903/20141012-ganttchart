@@ -54,7 +54,7 @@ public class ProjectEntity {
 		return ganttEntityList;
 	}
 
-	public static ProjectEntity createProjectEntity() {
+	public static ProjectEntity createSampleProjectEntity() {
 		String name = "project1";
 		Date beginDate = GanttEntity.createBeginDate();
 		List<GanttEntity> ganttEntityList = createGanttEntityList();

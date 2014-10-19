@@ -5,31 +5,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-/*
- @startuml ApplicationMain.puml.png
- title ClassDiagram ApplicationMain
- package entity {
- class ProjectEntity{
- }
- class GanttEntity{
- }
- ProjectEntity "1" o- "1..*"  GanttEntity
- GanttEntity "1" o- "1..*" TaskEntity
- }
-
- package gui {
-
- ApplicationMain "1" o- "1" MainFrame
- MainFrame "1" o- "1" ProjectFrame
- ProjectFrame "1" o- "1..*" GanttFrame
-
- ProjectFrame "1" o- "1" ProjectEntity
- GanttFrame "1" o- "1" GanttEntity
-
- }
- @enduml
- */
-
 /**
  * 
  * @author tempest200903

@@ -1,6 +1,9 @@
 package com.github.tempest200903.ganttchart.gui;
 
+import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +13,7 @@ import javax.swing.JComponent;
 import lombok.NonNull;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
+import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
@@ -30,12 +34,14 @@ class GanttChart extends JComponent {
 
 	GanttChart(GanttEntity ganttEntity) {
 		super();
+		assert ganttEntity!=null : "ganttEntity";
 		this.ganttEntity = ganttEntity;
 	}
 
 	private List<Calendar> createCalendarList() {
 		List<Calendar> dateList = Lists.newArrayList();
-		Date beginDate = ganttEntity.getProjectEntity().getBeginDate();
+		ProjectEntity projectEntity = ganttEntity.getProjectEntity();
+		Date beginDate = projectEntity.getBeginDate();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(beginDate);
 		for (int i = 0; i < 14; i++) {
@@ -48,36 +54,73 @@ class GanttChart extends JComponent {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		paintDateLine(g);
-		paintTaskEntityList(g);
+		Rectangle paintingBounds = paintDateLine(g);
+		paintTaskEntityList(g, paintingBounds);
 	}
 
 	/**
 	 * 日付ラインを描画する。
 	 * 
 	 * @param g
+	 * @return
 	 */
-	private void paintDateLine(Graphics g) {
+	private Rectangle paintDateLine(Graphics g) {
 		List<Calendar> calendarList = createCalendarList();
 		dateLinePainter.paintDateLine(g, calendarList);
+		return dateLinePainter.getPaintingBounds();
 	}
 
-	private void paintTaskEntity(Graphics g, TaskEntity taskEntity) {
+	/**
+	 * TaskEntity を描画する。
+	 * 
+	 * @param g
+	 * @param previousPaintingBounds
+	 * @param taskEntity
+	 * @return 描画領域。
+	 */
+	private Rectangle paintTaskEntity(Graphics g,
+			Rectangle previousPaintingBounds, TaskEntity taskEntity) {
+		// 描画の準備。
+		FontMetrics fontMetrics = g.getFontMetrics();
+		g.setColor(Color.RED);
+		int fontHeight = fontMetrics.getHeight();
+		Rectangle currentPaintingBounds = new Rectangle();
+
+		// 下線を描画する。
+		int x1 = previousPaintingBounds.x;
+		int y1 = previousPaintingBounds.y + previousPaintingBounds.height
+				+ fontHeight;
+		int x2 = previousPaintingBounds.x + previousPaintingBounds.width;
+		int y2 = y1;
+		g.drawLine(x1, y1, x2, y2);
+
+		// TODO 開始日時から終了日時までを描画する。
 		Date beginDate = taskEntity.getBeginDate();
 		Date endDate = taskEntity.getEndDate();
-		// TODO TBD
+
+		// currentPaintingBounds を計算する。
+		currentPaintingBounds.x = x1;
+		currentPaintingBounds.y = previousPaintingBounds.y + previousPaintingBounds.height;
+		currentPaintingBounds.width = x2 - x1;
+		currentPaintingBounds.height = y1 - currentPaintingBounds.y;
+		return currentPaintingBounds;
 	}
 
 	/**
 	 * タスクリストを描画する。
 	 * 
 	 * @param g
+	 * @param previousPaintingBounds
+	 *            描画の基点座標。
 	 */
-	private void paintTaskEntityList(Graphics g) {
+	private void paintTaskEntityList(Graphics g,
+			Rectangle previousPaintingBounds) {
 		List<TaskEntity> taskEntityList = this.ganttEntity.getTaskEntityList();
+		Rectangle currentPaintingBounds = previousPaintingBounds;
 		for (int i = 0; i < taskEntityList.size(); i++) {
 			TaskEntity taskEntity = taskEntityList.get(i);
-			paintTaskEntity(g, taskEntity);
+			currentPaintingBounds = paintTaskEntity(g, currentPaintingBounds,
+					taskEntity);
 		}
 	}
 

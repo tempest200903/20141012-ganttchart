@@ -22,6 +22,10 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("unused")
 class MainFrame extends JFrame {
 
+	static GanttEntity createSampleGanttEntity() {
+		return GanttEntity.createSampleGanttEntity();
+	}
+
 	/**
 	 * 
 	 */
@@ -40,24 +44,18 @@ class MainFrame extends JFrame {
 	}
 
 	private JDesktopPane createDesktop() {
-		ProjectFrame projectFrame = createProjectFrame();
+		ProjectEntity projectEntity = createProjectEntity();
+		ProjectFrame projectFrame = createProjectFrame(projectEntity);
 		JDesktopPane desktop = new JDesktopPane();
 		desktop.add(projectFrame);
 		return desktop;
 	}
 
-	static GanttEntity createSampleGanttEntity() {
-		return GanttEntity.createSampleGanttEntity();
-	}
-
-	
-
 	private ProjectEntity createProjectEntity() {
-		return ProjectEntity.createProjectEntity();
+		return ProjectEntity.createSampleProjectEntity();
 	}
 
-	private ProjectFrame createProjectFrame() {
-		ProjectEntity projectEntity = createProjectEntity();
+	private ProjectFrame createProjectFrame(ProjectEntity projectEntity) {
 		ProjectFrame projectFrame = new ProjectFrame(projectEntity);
 		int initialHeight = (int) (SCREEN_SIZE.height * 0.8);
 		int initialWidth = (int) (SCREEN_SIZE.width * 0.8);

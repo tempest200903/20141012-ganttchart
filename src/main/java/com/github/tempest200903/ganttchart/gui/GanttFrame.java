@@ -3,6 +3,7 @@ package com.github.tempest200903.ganttchart.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -14,22 +15,26 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
+import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
+import com.google.common.collect.Lists;
 
 class GanttFrame extends JInternalFrame {
 
 	public static void main(String[] args) {
 		GanttEntity sampleGanttEntity = MainFrame.createSampleGanttEntity();
+		new ProjectEntity("name", new Date(), Lists.newArrayList(sampleGanttEntity));
 		GanttFrame ganttFrame = new GanttFrame(sampleGanttEntity);
-		JTable table = ganttFrame.createTable();
-		table.setSize(new Dimension(400, 300));
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane ganttChartPane = ganttFrame.createGanttChartPane();
+		ganttChartPane.getViewport().setSize(new Dimension(1200, 1800));
+
 		JFrame frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+		frame.getContentPane().add(ganttChartPane, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(0, 0, 800, 600);
 		frame.setVisible(true);
@@ -89,31 +94,42 @@ class GanttFrame extends JInternalFrame {
 	}
 
 	private JSplitPane createSplitPane() {
+		JScrollPane ganttChartPane = createGanttChartPane();
+
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JComponent tablePane = createTablePane();
 		splitPane.add(tablePane);
-		splitPane.add(ganttChart);
+		splitPane.add(ganttChartPane);
 		splitPane.setDividerLocation(600);
+		// TODO 両方の pane にスクロールバーを表示する。
 		return splitPane;
 	}
 
+	private JScrollPane createGanttChartPane() {
+		JScrollPane ganttChartSPane = new JScrollPane(ganttChart);
+		ganttChart.setSize(new Dimension(30, 40));
+		ganttChartSPane.setSize(new Dimension(30, 40));
+		ganttChart.setMinimumSize(new Dimension(30, 40));
+		ganttChartSPane.setMinimumSize(new Dimension(30, 40));
+		// ganttChartSPane = new JScrollPane(new
+		// JLabel("abcdefghijklmnopqrstuvwxyz"));
+		return ganttChartSPane;
+	}
+
 	private JTable createTable() {
+		List<String> headerValueList = Lists.newArrayList();
+		headerValueList.add("number"); // 番号
+		headerValueList.add("name"); // 名前
+		headerValueList.add("duration"); // 期間
+		headerValueList.add("start date"); // 開始日時
+		headerValueList.add("finish date"); // 終了日時
+
 		List<TaskEntity> taskEntityList = ganttEntity.getTaskEntityList();
-		JTable table = new JTable(taskEntityList.size(), 2);
+		JTable table = new JTable(taskEntityList.size(), headerValueList.size());
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		// 列ヘッダを用意する。
-		TableColumn column0 = table.getTableHeader().getColumnModel()
-				.getColumn(0);
-		column0.setHeaderValue("name");
-
-		// 行を用意する。
-		for (int rowIndex = 0; rowIndex < taskEntityList.size(); rowIndex++) {
-			TaskEntity taskEntity = taskEntityList.get(rowIndex);
-			String taskName = taskEntity.getName();
-			table.getModel().setValueAt(taskName, rowIndex, 0);
-		}
-
+		initialzeColumn(table, headerValueList);
+		initialzeRow(table, taskEntityList);
 		return table;
 	}
 
@@ -121,6 +137,24 @@ class GanttFrame extends JInternalFrame {
 		JTable table = createTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		return scrollPane;
+	}
+
+	private void initialzeColumn(JTable table, List<String> headerValueList) {
+		// 列ヘッダを用意する。
+		TableColumnModel columnModel = table.getTableHeader().getColumnModel();
+		for (int i = 0; i < headerValueList.size(); i++) {
+			TableColumn column = columnModel.getColumn(i);
+			column.setHeaderValue(headerValueList.get(i));
+		}
+	}
+
+	private void initialzeRow(JTable table, List<TaskEntity> taskEntityList) {
+		// 行を用意する。
+		for (int rowIndex = 0; rowIndex < taskEntityList.size(); rowIndex++) {
+			TaskEntity taskEntity = taskEntityList.get(rowIndex);
+			String taskName = taskEntity.getName();
+			table.getModel().setValueAt(taskName, rowIndex, 0);
+		}
 	}
 
 }
