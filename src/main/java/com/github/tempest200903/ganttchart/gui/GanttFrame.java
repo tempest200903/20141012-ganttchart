@@ -2,6 +2,7 @@ package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,8 @@ class GanttFrame extends JInternalFrame {
 		}
 	};
 
+	JScrollPane timelineScrollPane;
+
 	public GanttFrame(GanttEntity ganttEntity) {
 		super();
 		this.ganttEntity = ganttEntity;
@@ -106,16 +109,6 @@ class GanttFrame extends JInternalFrame {
 		return splitPane;
 	}
 
-	private JScrollPane createTimelineChartPane() {
-		JScrollPane scrollPane = new JScrollPane(timelineChart,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		timelineChart.setSize(new Dimension(300, 400));
-		timelineChart.setMinimumSize(new Dimension(300, 400));
-		timelineChart.setPreferredSize(new Dimension(300, 400));
-		return scrollPane;
-	}
-
 	private JTable createTable() {
 		List<String> headerValueList = Lists.newArrayList();
 		headerValueList.add("number"); // 番号
@@ -139,6 +132,15 @@ class GanttFrame extends JInternalFrame {
 		return scrollPane;
 	}
 
+	private JScrollPane createTimelineChartPane() {
+		timelineScrollPane = new JScrollPane(timelineChart,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		timelineChart.setPreferredSize(screenSize);
+		return timelineScrollPane;
+	}
+
 	private void initialzeColumn(JTable table, List<String> headerValueList) {
 		// 列ヘッダを用意する。
 		TableColumnModel columnModel = table.getTableHeader().getColumnModel();
@@ -154,6 +156,34 @@ class GanttFrame extends JInternalFrame {
 			TaskEntity taskEntity = taskEntityList.get(rowIndex);
 			String taskName = taskEntity.getName();
 			table.getModel().setValueAt(taskName, rowIndex, 0);
+		}
+	}
+
+	/**
+	 * デバッグ用。
+	 */
+	private void printSize() {
+		System.out.println("timelineChart.getSize() =: "
+				+ timelineChart.getSize());
+		System.out.println("timelineChart.getMinimumSize() =: "
+				+ timelineChart.getMinimumSize());
+		System.out.println("timelineChart.getPreferredSize() =: "
+				+ timelineChart.getPreferredSize());
+
+		System.out.println("scrollPane.getSize() =: "
+				+ timelineScrollPane.getSize());
+		System.out.println("scrollPane.getMinimumSize() =: "
+				+ timelineScrollPane.getMinimumSize());
+		System.out.println("scrollPane.getPreferredSize() =: "
+				+ timelineScrollPane.getPreferredSize());
+	}
+
+	@Override
+	public void setVisible(boolean aFlag) {
+		// TODO Auto-generated method stub
+		super.setVisible(aFlag);
+		if (aFlag) {
+			printSize();
 		}
 	}
 
