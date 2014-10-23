@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
  * @author tempest200903
  *
  */
-class GanttChart extends JComponent {
+class TimelineChart extends JComponent {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ class GanttChart extends JComponent {
 
 	private DateLinePainter dateLinePainter = new DateLinePainterType1();
 
-	GanttChart(GanttEntity ganttEntity) {
+	TimelineChart(GanttEntity ganttEntity) {
 		super();
 		assert ganttEntity != null : "ganttEntity";
 		this.ganttEntity = ganttEntity;

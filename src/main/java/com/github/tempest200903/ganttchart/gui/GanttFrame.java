@@ -30,12 +30,12 @@ class GanttFrame extends JInternalFrame {
 		new ProjectEntity("name", new Date(),
 				Lists.newArrayList(sampleGanttEntity));
 		GanttFrame ganttFrame = new GanttFrame(sampleGanttEntity);
-		JScrollPane ganttChartPane = ganttFrame.createGanttChartPane();
-		ganttChartPane.getViewport().setSize(new Dimension(1200, 1800));
+		JScrollPane timelineChartPane = ganttFrame.createTimelineChartPane();
+		timelineChartPane.getViewport().setSize(new Dimension(1200, 1800));
 
 		JFrame frame = new JFrame();
 		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(ganttChartPane, BorderLayout.CENTER);
+		frame.getContentPane().add(timelineChartPane, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(0, 0, 800, 600);
 		frame.setVisible(true);
@@ -48,7 +48,7 @@ class GanttFrame extends JInternalFrame {
 
 	private GanttEntity ganttEntity;
 
-	private GanttChart ganttChart;
+	private TimelineChart timelineChart;
 
 	private TextAction zoomOutAction = new TextAction("zoom out") {
 		/** . */
@@ -56,7 +56,7 @@ class GanttFrame extends JInternalFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ganttChart.zoomOut();
+			timelineChart.zoomOut();
 		}
 	};
 	private TextAction zoomInAction = new TextAction("zoom in") {
@@ -65,7 +65,7 @@ class GanttFrame extends JInternalFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ganttChart.zoomIn();
+			timelineChart.zoomIn();
 		}
 	};
 
@@ -73,7 +73,7 @@ class GanttFrame extends JInternalFrame {
 		super();
 		this.ganttEntity = ganttEntity;
 
-		ganttChart = new GanttChart(ganttEntity);
+		timelineChart = new TimelineChart(ganttEntity);
 
 		setTitle("Gantt");
 		setLayout(new BorderLayout());
@@ -95,32 +95,25 @@ class GanttFrame extends JInternalFrame {
 	}
 
 	private JSplitPane createSplitPane() {
-		JScrollPane ganttChartPane = createGanttChartPane();
+		JScrollPane timelineChartPane = createTimelineChartPane();
 
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JComponent tablePane = createTablePane();
 		splitPane.add(tablePane);
-		splitPane.add(ganttChartPane);
+		splitPane.add(timelineChartPane);
 		splitPane.setDividerLocation(600);
 		// TODO 両方の pane にスクロールバーを表示する。
 		return splitPane;
 	}
 
-	private JScrollPane createGanttChartPane() {
-		JScrollPane ganttChartPane = new JScrollPane(ganttChart,
+	private JScrollPane createTimelineChartPane() {
+		JScrollPane scrollPane = new JScrollPane(timelineChart,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		ganttChart.setSize(new Dimension(300, 400));
-		ganttChart.setMinimumSize(new Dimension(300, 400));
-		ganttChart.setPreferredSize(new Dimension(300, 400));
-
-		// ganttChartPane.setSize(new Dimension(30, 40));
-		// ganttChartPane.setMinimumSize(new Dimension(30, 40));
-		// ganttChartPane.setPreferredSize(new Dimension(30, 40));
-
-		// ganttChartSPane = new JScrollPane(new
-		// JLabel("abcdefghijklmnopqrstuvwxyz"));
-		return ganttChartPane;
+		timelineChart.setSize(new Dimension(300, 400));
+		timelineChart.setMinimumSize(new Dimension(300, 400));
+		timelineChart.setPreferredSize(new Dimension(300, 400));
+		return scrollPane;
 	}
 
 	private JTable createTable() {
