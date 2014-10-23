@@ -27,7 +27,8 @@ class GanttFrame extends JInternalFrame {
 
 	public static void main(String[] args) {
 		GanttEntity sampleGanttEntity = MainFrame.createSampleGanttEntity();
-		new ProjectEntity("name", new Date(), Lists.newArrayList(sampleGanttEntity));
+		new ProjectEntity("name", new Date(),
+				Lists.newArrayList(sampleGanttEntity));
 		GanttFrame ganttFrame = new GanttFrame(sampleGanttEntity);
 		JScrollPane ganttChartPane = ganttFrame.createGanttChartPane();
 		ganttChartPane.getViewport().setSize(new Dimension(1200, 1800));
@@ -106,14 +107,20 @@ class GanttFrame extends JInternalFrame {
 	}
 
 	private JScrollPane createGanttChartPane() {
-		JScrollPane ganttChartSPane = new JScrollPane(ganttChart);
-		ganttChart.setSize(new Dimension(30, 40));
-		ganttChartSPane.setSize(new Dimension(30, 40));
-		ganttChart.setMinimumSize(new Dimension(30, 40));
-		ganttChartSPane.setMinimumSize(new Dimension(30, 40));
+		JScrollPane ganttChartPane = new JScrollPane(ganttChart,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		ganttChart.setSize(new Dimension(300, 400));
+		ganttChart.setMinimumSize(new Dimension(300, 400));
+		ganttChart.setPreferredSize(new Dimension(300, 400));
+
+		// ganttChartPane.setSize(new Dimension(30, 40));
+		// ganttChartPane.setMinimumSize(new Dimension(30, 40));
+		// ganttChartPane.setPreferredSize(new Dimension(30, 40));
+
 		// ganttChartSPane = new JScrollPane(new
 		// JLabel("abcdefghijklmnopqrstuvwxyz"));
-		return ganttChartSPane;
+		return ganttChartPane;
 	}
 
 	private JTable createTable() {

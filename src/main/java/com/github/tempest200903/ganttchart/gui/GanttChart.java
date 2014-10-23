@@ -27,6 +27,7 @@ class GanttChart extends JComponent {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@NonNull
 	private GanttEntity ganttEntity;
 
@@ -34,7 +35,7 @@ class GanttChart extends JComponent {
 
 	GanttChart(GanttEntity ganttEntity) {
 		super();
-		assert ganttEntity!=null : "ganttEntity";
+		assert ganttEntity != null : "ganttEntity";
 		this.ganttEntity = ganttEntity;
 	}
 
@@ -100,7 +101,8 @@ class GanttChart extends JComponent {
 
 		// currentPaintingBounds を計算する。
 		currentPaintingBounds.x = x1;
-		currentPaintingBounds.y = previousPaintingBounds.y + previousPaintingBounds.height;
+		currentPaintingBounds.y = previousPaintingBounds.y
+				+ previousPaintingBounds.height;
 		currentPaintingBounds.width = x2 - x1;
 		currentPaintingBounds.height = y1 - currentPaintingBounds.y;
 		return currentPaintingBounds;
