@@ -32,6 +32,7 @@ class ProjectFrame extends JInternalFrame {
 		List<GanttEntity> list = this.projectEntity.getGanttEntityList();
 		for (GanttEntity ganttEntity : list) {
 			GanttFrame ganttFrame = new GanttFrame(ganttEntity);
+			ganttFrame.setResizable(true);
 			ganttFrame.setVisible(true);
 			desktop.add(ganttFrame);
 		}

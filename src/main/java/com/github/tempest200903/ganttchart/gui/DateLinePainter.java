@@ -5,14 +5,38 @@ import java.awt.Rectangle;
 import java.util.Calendar;
 import java.util.List;
 
+import com.github.tempest200903.ganttchart.entity.ProjectEntity;
+import com.github.tempest200903.ganttchart.entity.TaskEntity;
+
 abstract class DateLinePainter {
 
-	public Rectangle getPaintingBounds() {
-		return paintingBounds;
+	private TablePainter tablePainter;
+
+	private ProjectEntity projectEntity;
+
+	ProjectEntity getProjectEntity() {
+		return projectEntity;
 	}
 
-	protected Rectangle paintingBounds = new Rectangle();
+	TablePainter getTablePainter() {
+		return tablePainter;
+	}
 
-	abstract void paintDateLine(Graphics g, int headerHeight, List<Calendar> calendarList);
+	DateLinePainter(ProjectEntity projectEntity, TablePainter tablePainter) {
+		super();
+		this.projectEntity = projectEntity;
+		this.tablePainter = tablePainter;
+	}
+
+	public Rectangle getPaintingBounds() {
+		return datelinePaintingBounds;
+	}
+
+	protected Rectangle datelinePaintingBounds = new Rectangle();
+
+	abstract void paintDateLine(Graphics g, int headerHeight,
+			List<Calendar> calendarList);
+
+	abstract void paintTaskBar(Graphics g, int taskIndex, TaskEntity taskEntity);
 
 }

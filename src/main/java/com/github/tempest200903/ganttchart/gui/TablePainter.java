@@ -1,9 +1,9 @@
 package com.github.tempest200903.ganttchart.gui;
 
-interface TablePainter {
+abstract class TablePainter {
 
-	int getHeaderHeight();
+	abstract int getHeaderHeight();
 
-	int getRowHeight();
+	abstract int getRowHeight();
 
 }

@@ -1,7 +1,6 @@
 package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Calendar;
@@ -32,7 +31,7 @@ class TimelineChart extends JComponent {
 	private GanttEntity ganttEntity;
 
 	@NonNull
-	private DateLinePainter dateLinePainter = new DateLinePainterType1();
+	private DateLinePainter dateLinePainter;
 
 	@NonNull
 	private TablePainter tablePainter;
@@ -42,6 +41,8 @@ class TimelineChart extends JComponent {
 		this.ganttEntity = ganttEntity;
 		this.tablePainter = tablePainter;
 		assert ganttEntity != null : "ganttEntity";
+		ProjectEntity projectEntity = ganttEntity.getProjectEntity();
+		dateLinePainter = new DateLinePainterType1(projectEntity, tablePainter);
 
 		System.out.println("this.tablePainter.getRowHeight() =: "
 				+ this.tablePainter.getHeaderHeight());
@@ -85,15 +86,18 @@ class TimelineChart extends JComponent {
 	 * 
 	 * @param g
 	 * @param previousPaintingBounds
+	 * @param taskIndex
+	 *            TODO
 	 * @param taskEntity
 	 * @return 描画領域。
 	 */
 	private Rectangle paintTaskEntity(Graphics g,
-			Rectangle previousPaintingBounds, TaskEntity taskEntity) {
+			Rectangle previousPaintingBounds, int taskIndex,
+			TaskEntity taskEntity) {
 		// 描画の準備。
-		FontMetrics fontMetrics = g.getFontMetrics();
+		// FontMetrics fontMetrics = g.getFontMetrics();
+		// int fontHeight = fontMetrics.getHeight();
 		g.setColor(Color.RED);
-		int fontHeight = fontMetrics.getHeight();
 		Rectangle currentPaintingBounds = new Rectangle();
 
 		// 下線を描画する。
@@ -104,16 +108,14 @@ class TimelineChart extends JComponent {
 		int y2 = y1;
 		g.drawLine(x1, y1, x2, y2);
 
-		// TODO 開始日時から終了日時までを描画する。
-		// Date beginDate = taskEntity.getBeginDate();
-		// Date endDate = taskEntity.getEndDate();
-
 		// currentPaintingBounds を計算する。
 		currentPaintingBounds.x = x1;
 		currentPaintingBounds.y = previousPaintingBounds.y
 				+ previousPaintingBounds.height;
 		currentPaintingBounds.width = x2 - x1;
 		currentPaintingBounds.height = y1 - currentPaintingBounds.y;
+
+		dateLinePainter.paintTaskBar(g, taskIndex, taskEntity);
 		return currentPaintingBounds;
 	}
 
@@ -128,10 +130,10 @@ class TimelineChart extends JComponent {
 			Rectangle previousPaintingBounds) {
 		List<TaskEntity> taskEntityList = this.ganttEntity.getTaskEntityList();
 		Rectangle currentPaintingBounds = previousPaintingBounds;
-		for (int i = 0; i < taskEntityList.size(); i++) {
-			TaskEntity taskEntity = taskEntityList.get(i);
+		for (int taskIndex = 0; taskIndex < taskEntityList.size(); taskIndex++) {
+			TaskEntity taskEntity = taskEntityList.get(taskIndex);
 			currentPaintingBounds = paintTaskEntity(g, currentPaintingBounds,
-					taskEntity);
+					taskIndex, taskEntity);
 		}
 	}
 

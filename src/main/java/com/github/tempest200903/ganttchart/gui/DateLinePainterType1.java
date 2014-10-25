@@ -7,8 +7,18 @@ import java.awt.Point;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import com.github.tempest200903.ganttchart.entity.ProjectEntity;
+import com.github.tempest200903.ganttchart.entity.TaskEntity;
+
+/**
+ * 1行目が1日、2行目が2時間のスケールで描画するペインタ。
+ * 
+ * @author tempest200903
+ *
+ */
 class DateLinePainterType1 extends DateLinePainter {
 
 	static int[] HOURS = new int[12];
@@ -19,9 +29,41 @@ class DateLinePainterType1 extends DateLinePainter {
 		}
 	}
 
+	/**
+	 * 描画領域のX座標オフセット。固定。
+	 */
 	private int xOffset = 2;
 
+	/**
+	 * 描画領域のY座標オフセット。 paintDateLine() の中で算出する。
+	 */
 	private int yOffset = Integer.MAX_VALUE;
+
+	/**
+	 * 1日ぶんの幅。 paintDateLine() の中で算出する。
+	 */
+	private int widthPerDay = Integer.MAX_VALUE;
+
+	DateLinePainterType1(ProjectEntity projectEntity, TablePainter tablePainter) {
+		super(projectEntity, tablePainter);
+	}
+
+	private int calcXAxis(Date date) {
+		long projectBeginTime = getProjectEntity().getBeginDate().getTime();
+		long relativeTime = date.getTime() - projectBeginTime;
+		double dayRate = relativeTime / (1000 * 60 * 60 * 24);
+		System.out.println("date.getTime() = " + date.getTime());
+		System.out.println("projectBeginTime = " + projectBeginTime);
+		System.out.println("widthPerDay = " + widthPerDay);
+		System.out.println("relativeTime = " + relativeTime);
+		System.out.println("dayRate = " + dayRate);
+		return (int)(xOffset + widthPerDay *  dayRate);
+	}
+
+	private int calcYAxis(int taskIndex, int height) {
+		return datelinePaintingBounds.y + datelinePaintingBounds.height
+				+ height * taskIndex;
+	}
 
 	@Override
 	void paintDateLine(Graphics g, int headerHeight, List<Calendar> calendarList) {
@@ -58,13 +100,29 @@ class DateLinePainterType1 extends DateLinePainter {
 			DateFormat dateFormat = new SimpleDateFormat("EE dd MM");
 			String dateString = dateFormat.format(calendar.getTime());
 			g.drawString(dateString, x1, y1 - fontHeight / 3);
-			g.drawRect(x1 - xOffset, yOffset, x2 - x1, fontHeight);
+			widthPerDay = Math.min(widthPerDay, x2 - x1);
+			g.drawRect(x1 - xOffset, yOffset, widthPerDay, fontHeight);
 
 			// paintingBounds を計算する。
-			paintingBounds.x = Math.min(paintingBounds.x, x1);
-			paintingBounds.y = Math.min(paintingBounds.y, y1);
+			datelinePaintingBounds.x = Math.min(datelinePaintingBounds.x, x1);
+			datelinePaintingBounds.y = Math.min(datelinePaintingBounds.y, y1);
 		}
-		paintingBounds.width = paintingBottom.x - paintingBounds.x;
-		paintingBounds.height = paintingBottom.y - paintingBounds.y;
+		datelinePaintingBounds.width = paintingBottom.x
+				- datelinePaintingBounds.x;
+		datelinePaintingBounds.height = paintingBottom.y
+				- datelinePaintingBounds.y;
+	}
+
+	@Override
+	void paintTaskBar(Graphics g, int taskIndex, TaskEntity taskEntity) {
+		g.setColor(Color.GREEN);
+		// TODO 開始日時から終了日時までを描画する。
+		Date beginDate = taskEntity.getBeginDate();
+		Date finishDate = taskEntity.getFinishDate();
+		int height = getTablePainter().getRowHeight();
+		int y = calcYAxis(taskIndex, height);
+		int x = calcXAxis(beginDate);
+		int width = calcXAxis(finishDate) - x;
+		g.drawRect(x, y, width, height);
 	}
 }

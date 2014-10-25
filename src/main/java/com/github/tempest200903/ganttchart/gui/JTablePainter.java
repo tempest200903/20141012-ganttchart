@@ -2,7 +2,7 @@ package com.github.tempest200903.ganttchart.gui;
 
 import javax.swing.JTable;
 
-class JTablePainter implements TablePainter {
+class JTablePainter extends TablePainter {
 
 	JTable table;
 
@@ -12,12 +12,12 @@ class JTablePainter implements TablePainter {
 	}
 
 	@Override
-	public int getHeaderHeight() {
+	int getHeaderHeight() {
 		return table.getTableHeader().getHeight();
 	}
 
 	@Override
-	public int getRowHeight() {
+	int getRowHeight() {
 		return table.getRowHeight();
 	}
 
