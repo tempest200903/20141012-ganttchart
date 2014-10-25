@@ -31,12 +31,20 @@ class TimelineChart extends JComponent {
 	@NonNull
 	private GanttEntity ganttEntity;
 
+	@NonNull
 	private DateLinePainter dateLinePainter = new DateLinePainterType1();
 
-	TimelineChart(GanttEntity ganttEntity) {
+	@NonNull
+	private TablePainter tablePainter;
+
+	TimelineChart(GanttEntity ganttEntity, TablePainter tablePainter) {
 		super();
-		assert ganttEntity != null : "ganttEntity";
 		this.ganttEntity = ganttEntity;
+		this.tablePainter = tablePainter;
+		assert ganttEntity != null : "ganttEntity";
+
+		System.out.println("this.tablePainter.getRowHeight() =: "
+				+ this.tablePainter.getHeaderHeight());
 	}
 
 	private List<Calendar> createCalendarList() {
@@ -67,7 +75,8 @@ class TimelineChart extends JComponent {
 	 */
 	private Rectangle paintDateLine(Graphics g) {
 		List<Calendar> calendarList = createCalendarList();
-		dateLinePainter.paintDateLine(g, calendarList);
+		int headerHeight = tablePainter.getHeaderHeight();
+		dateLinePainter.paintDateLine(g, headerHeight, calendarList);
 		return dateLinePainter.getPaintingBounds();
 	}
 
@@ -96,8 +105,8 @@ class TimelineChart extends JComponent {
 		g.drawLine(x1, y1, x2, y2);
 
 		// TODO 開始日時から終了日時までを描画する。
-		Date beginDate = taskEntity.getBeginDate();
-		Date endDate = taskEntity.getEndDate();
+		// Date beginDate = taskEntity.getBeginDate();
+		// Date endDate = taskEntity.getEndDate();
 
 		// currentPaintingBounds を計算する。
 		currentPaintingBounds.x = x1;

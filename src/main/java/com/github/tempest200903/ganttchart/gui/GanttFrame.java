@@ -10,11 +10,14 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.TextAction;
@@ -70,13 +73,15 @@ class GanttFrame extends JInternalFrame {
 		}
 	};
 
-	JScrollPane timelineScrollPane;
+	private JScrollPane timelineScrollPane;
+
+	private JTable table;
 
 	public GanttFrame(GanttEntity ganttEntity) {
 		super();
 		this.ganttEntity = ganttEntity;
-
-		timelineChart = new TimelineChart(ganttEntity);
+		this.table = createTable();
+		timelineChart = new TimelineChart(ganttEntity, new JTablePainter(table));
 
 		setTitle("Gantt");
 		setLayout(new BorderLayout());
@@ -99,13 +104,11 @@ class GanttFrame extends JInternalFrame {
 
 	private JSplitPane createSplitPane() {
 		JScrollPane timelineChartPane = createTimelineChartPane();
-
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JComponent tablePane = createTablePane();
 		splitPane.add(tablePane);
 		splitPane.add(timelineChartPane);
 		splitPane.setDividerLocation(600);
-		// TODO 両方の pane にスクロールバーを表示する。
 		return splitPane;
 	}
 
@@ -118,16 +121,16 @@ class GanttFrame extends JInternalFrame {
 		headerValueList.add("finish date"); // 終了日時
 
 		List<TaskEntity> taskEntityList = ganttEntity.getTaskEntityList();
-		JTable table = new JTable(taskEntityList.size(), headerValueList.size());
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		JTable table0 = new JTable(taskEntityList.size(),
+				headerValueList.size());
+		table0.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		initialzeColumn(table, headerValueList);
-		initialzeRow(table, taskEntityList);
-		return table;
+		initialzeColumn(table0, headerValueList);
+		initialzeRow(table0, taskEntityList);
+		return table0;
 	}
 
 	private JComponent createTablePane() {
-		JTable table = createTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		return scrollPane;
 	}
@@ -180,11 +183,13 @@ class GanttFrame extends JInternalFrame {
 
 	@Override
 	public void setVisible(boolean aFlag) {
-		// TODO Auto-generated method stub
 		super.setVisible(aFlag);
 		if (aFlag) {
 			printSize();
+			JTableHeader header = table.getTableHeader();
+			Dimension d = new Dimension(header.getWidth(),
+					header.getHeight() + 100);
+			header.setPreferredSize(d);
 		}
 	}
-
 }

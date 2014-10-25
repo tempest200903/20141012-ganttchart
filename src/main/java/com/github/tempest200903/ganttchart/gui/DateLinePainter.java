@@ -13,6 +13,6 @@ abstract class DateLinePainter {
 
 	protected Rectangle paintingBounds = new Rectangle();
 
-	abstract void paintDateLine(Graphics g, List<Calendar> calendarList);
+	abstract void paintDateLine(Graphics g, int headerHeight, List<Calendar> calendarList);
 
 }
