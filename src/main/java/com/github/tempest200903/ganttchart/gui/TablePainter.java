@@ -4,4 +4,6 @@ interface TablePainter {
 
 	int getHeaderHeight();
 
+	int getRowHeight();
+
 }

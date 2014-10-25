@@ -26,6 +26,13 @@ public class GanttEntity {
 		return beginDate;
 	}
 
+	static Date createEndDate() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		calendar.set(2014, 2, 4);
+		Date beginDate = calendar.getTime();
+		return beginDate;
+	}
+
 	public static GanttEntity createSampleGanttEntity() {
 		List<TaskEntity> taskEntityList = Lists.newArrayList(
 				createTaskEntity(), createTaskEntity(), createTaskEntity(),
@@ -38,7 +45,7 @@ public class GanttEntity {
 	static TaskEntity createTaskEntity() {
 		String name = "task" + System.currentTimeMillis();
 		Date beginDate = createBeginDate();
-		Date endDate = createBeginDate();
+		Date endDate = createEndDate();
 		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
 		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
 

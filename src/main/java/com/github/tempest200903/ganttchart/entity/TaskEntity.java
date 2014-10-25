@@ -35,7 +35,7 @@ public class TaskEntity {
 	 * 終了日付。
 	 */
 	@NonNull
-	private Date endDate;
+	private Date finishDate;
 
 	/**
 	 * 制約の種類。
@@ -58,5 +58,14 @@ public class TaskEntity {
 	 */
 	@NonNull
 	private TaskCalendarEntity taskCalendar;
+
+	/**
+	 * 期間。単位は秒。計算不能な場合は null 。
+	 * 
+	 * @return
+	 */
+	public Long getDuration() {
+		return finishDate.getTime() - beginDate.getTime();
+	}
 
 }

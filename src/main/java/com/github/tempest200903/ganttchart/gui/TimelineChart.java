@@ -99,7 +99,7 @@ class TimelineChart extends JComponent {
 		// 下線を描画する。
 		int x1 = previousPaintingBounds.x;
 		int y1 = previousPaintingBounds.y + previousPaintingBounds.height
-				+ fontHeight;
+				+ tablePainter.getRowHeight();
 		int x2 = previousPaintingBounds.x + previousPaintingBounds.width;
 		int y2 = y1;
 		g.drawLine(x1, y1, x2, y2);

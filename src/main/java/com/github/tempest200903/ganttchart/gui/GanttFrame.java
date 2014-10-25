@@ -4,16 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -23,27 +19,10 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
-import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
 class GanttFrame extends JInternalFrame {
-
-	public static void main(String[] args) {
-		GanttEntity sampleGanttEntity = MainFrame.createSampleGanttEntity();
-		new ProjectEntity("name", new Date(),
-				Lists.newArrayList(sampleGanttEntity));
-		GanttFrame ganttFrame = new GanttFrame(sampleGanttEntity);
-		JScrollPane timelineChartPane = ganttFrame.createTimelineChartPane();
-		timelineChartPane.getViewport().setSize(new Dimension(1200, 1800));
-
-		JFrame frame = new JFrame();
-		frame.getContentPane().setLayout(new BorderLayout());
-		frame.getContentPane().add(timelineChartPane, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(0, 0, 800, 600);
-		frame.setVisible(true);
-	}
 
 	/**
 	 * 
@@ -157,8 +136,26 @@ class GanttFrame extends JInternalFrame {
 		// 行を用意する。
 		for (int rowIndex = 0; rowIndex < taskEntityList.size(); rowIndex++) {
 			TaskEntity taskEntity = taskEntityList.get(rowIndex);
+
+			// number
+			String value0 = String.valueOf(rowIndex + 1);
+			table.getModel().setValueAt(value0, rowIndex, 0);
+
+			// name
 			String taskName = taskEntity.getName();
-			table.getModel().setValueAt(taskName, rowIndex, 0);
+			table.getModel().setValueAt(taskName, rowIndex, 1);
+
+			// duration
+			String duration = String.valueOf(taskEntity.getDuration());
+			table.getModel().setValueAt(duration, rowIndex, 2);
+
+			// beginDate
+			String beginDate = String.valueOf(taskEntity.getBeginDate());
+			table.getModel().setValueAt(beginDate, rowIndex, 3);
+
+			// finish
+			String endDate = String.valueOf(taskEntity.getFinishDate());
+			table.getModel().setValueAt(endDate, rowIndex, 4);
 		}
 	}
 
@@ -184,12 +181,15 @@ class GanttFrame extends JInternalFrame {
 	@Override
 	public void setVisible(boolean aFlag) {
 		super.setVisible(aFlag);
-		if (aFlag) {
+		if (isVisible()) {
 			printSize();
 			JTableHeader header = table.getTableHeader();
-			Dimension d = new Dimension(header.getWidth(),
-					header.getHeight() + 100);
-			header.setPreferredSize(d);
+			int preferredWidth = header.getWidth();
+			int preferredHeight = header.getHeight() + 40;
+			Dimension preferredSize = new Dimension(preferredWidth,
+					preferredHeight);
+			header.setPreferredSize(preferredSize);
 		}
 	}
+
 }

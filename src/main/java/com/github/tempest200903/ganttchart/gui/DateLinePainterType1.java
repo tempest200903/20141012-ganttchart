@@ -40,7 +40,7 @@ class DateLinePainterType1 extends DateLinePainter {
 			// 2行目。
 			for (int i = 0; i < HOURS.length; i++) {
 				String hourString = String.format("%02d ", HOURS[i]);
-				g.drawString(hourString, x2, y2 -  fontHeight / 3);
+				g.drawString(hourString, x2, y2 - fontHeight / 3);
 				int stringWidth = fontMetrics.stringWidth(hourString);
 				int rectHeight = fontHeight;
 				int rectWidth = stringWidth;

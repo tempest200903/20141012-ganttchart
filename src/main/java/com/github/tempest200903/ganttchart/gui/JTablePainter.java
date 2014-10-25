@@ -16,4 +16,9 @@ class JTablePainter implements TablePainter {
 		return table.getTableHeader().getHeight();
 	}
 
+	@Override
+	public int getRowHeight() {
+		return table.getRowHeight();
+	}
+
 }
