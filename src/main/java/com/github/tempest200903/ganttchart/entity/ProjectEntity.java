@@ -101,4 +101,17 @@ public class ProjectEntity {
 		}
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ProjectEntity [name=");
+		builder.append(name);
+		// builder.append(", startDate=");
+		// builder.append(startDate);
+		// builder.append(", ganttEntityList=");
+		// builder.append(ganttEntityList);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

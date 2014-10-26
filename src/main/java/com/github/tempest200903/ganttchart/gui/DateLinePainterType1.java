@@ -52,11 +52,13 @@ class DateLinePainterType1 extends DateLinePainter {
 		long projectBeginTime = getProjectEntity().getStartDate().getTime();
 		long relativeTime = date.getTime() - projectBeginTime;
 		double dayRate = relativeTime / (1000 * 60 * 60 * 24);
-		System.out.println("date.getTime() = " + date.getTime());
-		System.out.println("projectBeginTime = " + projectBeginTime);
-		System.out.println("widthPerDay = " + widthPerDay);
-		System.out.println("relativeTime = " + relativeTime);
-		System.out.println("dayRate = " + dayRate);
+		if (false) {
+			System.out.println("date.getTime() = " + date.getTime());
+			System.out.println("projectBeginTime = " + projectBeginTime);
+			System.out.println("widthPerDay = " + widthPerDay);
+			System.out.println("relativeTime = " + relativeTime);
+			System.out.println("dayRate = " + dayRate);
+		}
 		return (int) (xOffset + widthPerDay * dayRate);
 	}
 

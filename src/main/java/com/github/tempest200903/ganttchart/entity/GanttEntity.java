@@ -1,5 +1,10 @@
 package com.github.tempest200903.ganttchart.entity;
 
+import java.beans.XMLEncoder;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,8 +13,6 @@ import java.util.TimeZone;
 
 import lombok.Data;
 import lombok.NonNull;
-
-import com.google.common.collect.Lists;
 
 /**
  * ガント。
@@ -39,19 +42,43 @@ public class GanttEntity {
 
 	public static GanttEntity createSampleGanttEntity() {
 		GanttEntity ganttEntity = new GanttEntity();
-		for (int i = 0; i < 8; i++) {
-			TaskEntity taskEntity = ganttEntity.createSampleTaskEntity();
-			taskEntity.setName(String.format("task%d", i));
+		TaskEntity[] t = new TaskEntity[8];
+		for (int i = 0; i < t.length; i++) {
+			t[i] = ganttEntity.createSampleTaskEntity();
+			t[i].setName(String.format("task%d", i));
+		}
+		t[1].addPredecessor(t[0]);
+		t[2].addPredecessor(t[0]);
+		t[3].addPredecessor(t[2]);
+		t[4].addPredecessor(t[2]);
+		t[5].addPredecessor(t[4]);
+		t[6].addPredecessor(t[4]);
+		t[7].addPredecessor(t[6]);
+
+		// デバッグ用。
+		if (true) {
+			exportGanttEntity(ganttEntity);
 		}
 		return ganttEntity;
 	}
 
+	private static void exportGanttEntity(GanttEntity ganttEntity) {
+		try {
+			OutputStream outputStream = new FileOutputStream("ganttEntity.xml");
+			XMLEncoder xmlEncoder = new XMLEncoder(outputStream);
+			xmlEncoder.writeObject(ganttEntity);
+		} catch (IOException e) {
+			e.printStackTrace(); // TODO catch
+		}
+	}
+
 	TaskEntity createSampleTaskEntity() {
 		String name = "task" + System.currentTimeMillis();
-		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
+		TaskConstraintType constraintType = new TaskConstraintTypeAsSoonAsPossible();
 		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
-		TaskEntity taskEntity = new TaskEntity(name, constraintType,
-				taskCalendar, 1000 * 60 * 60 * 24, this);
+		int number = taskEntityList.size() - 1;
+		TaskEntity taskEntity = new TaskEntity(number, name, constraintType,
+				taskCalendar, 1000L * 60 * 60 * 24, this);
 		taskEntityList.add(taskEntity);
 		return taskEntity;
 	}
@@ -66,6 +93,15 @@ public class GanttEntity {
 
 	public GanttEntity() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("GanttEntity [taskEntityList=");
+		builder.append(taskEntityList);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

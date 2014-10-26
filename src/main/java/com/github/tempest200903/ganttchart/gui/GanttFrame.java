@@ -19,6 +19,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
+import com.github.tempest200903.ganttchart.entity.TaskDependencyEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
@@ -92,12 +93,7 @@ class GanttFrame extends JInternalFrame {
 	}
 
 	private JTable createTable() {
-		List<String> headerValueList = Lists.newArrayList();
-		headerValueList.add("number"); // 番号
-		headerValueList.add("name"); // 名前
-		headerValueList.add("duration"); // 期間
-		headerValueList.add("start date"); // 開始日時
-		headerValueList.add("finish date"); // 終了日時
+		List<String> headerValueList = createHeaderValueList();
 
 		List<TaskEntity> taskEntityList = ganttEntity.getTaskEntityList();
 		JTable table0 = new JTable(taskEntityList.size(),
@@ -107,6 +103,17 @@ class GanttFrame extends JInternalFrame {
 		initialzeColumn(table0, headerValueList);
 		initialzeRow(table0, taskEntityList);
 		return table0;
+	}
+
+	private List<String> createHeaderValueList() {
+		String[] headerValueArray = { "number" // 番号。
+				, "name" // 名前。
+				, "duration" // 期間。
+				, "start date" // 開始日時。
+				, "finish date" // 終了日時。
+				, "predecessor" // 先行タスク。
+		};
+		return Lists.newArrayList(headerValueArray);
 	}
 
 	private JComponent createTablePane() {
@@ -156,7 +163,21 @@ class GanttFrame extends JInternalFrame {
 			// finish
 			String endDate = String.valueOf(taskEntity.getFinishDate());
 			table.getModel().setValueAt(endDate, rowIndex, 4);
+
+			// predecessorList
+			String predecessorList = toDisplayString(taskEntity
+					.getPredecessorList());
+			table.getModel().setValueAt(predecessorList, rowIndex, 5);
 		}
+	}
+
+	private String toDisplayString(List<TaskDependencyEntity> predecessorList) {
+		StringBuilder s = new StringBuilder();
+		for (TaskDependencyEntity taskDependencyEntity : predecessorList) {
+			int number = taskDependencyEntity.getFrom().getNumber() + 1;
+			s.append(number + " ");
+		}
+		return s.toString();
 	}
 
 	/**
