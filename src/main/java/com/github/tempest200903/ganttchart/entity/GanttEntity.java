@@ -19,33 +19,37 @@ import com.google.common.collect.Lists;
 @Data
 public class GanttEntity {
 
-	static Date createBeginDate() {
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		calendar.set(2014, 2, 3);
-		Date beginDate = calendar.getTime();
-		return beginDate;
+	static Calendar sampleCalendar = Calendar
+			.getInstance(TimeZone.getDefault());
+
+	static {
+		sampleCalendar.set(2014, 2, 3);
 	}
 
-	static Date createEndDate() {
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		calendar.set(2014, 2, 4);
-		Date beginDate = calendar.getTime();
-		return beginDate;
+	static Date createSampleStartDate() {
+		sampleCalendar.add(Calendar.DATE, 1);
+		return sampleCalendar.getTime();
+	}
+
+	static Date createSampleFinishDate() {
+		sampleCalendar.add(Calendar.DATE, 1);
+		return sampleCalendar.getTime();
 	}
 
 	public static GanttEntity createSampleGanttEntity() {
 		List<TaskEntity> taskEntityList = Lists.newArrayList(
-				createTaskEntity(), createTaskEntity(), createTaskEntity(),
-				createTaskEntity(), createTaskEntity(), createTaskEntity(),
-				createTaskEntity(), createTaskEntity());
+				createSampleTaskEntity(), createSampleTaskEntity(),
+				createSampleTaskEntity(), createSampleTaskEntity(),
+				createSampleTaskEntity(), createSampleTaskEntity(),
+				createSampleTaskEntity(), createSampleTaskEntity());
 		GanttEntity ganttEntity = new GanttEntity(taskEntityList);
 		return ganttEntity;
 	}
 
-	static TaskEntity createTaskEntity() {
+	static TaskEntity createSampleTaskEntity() {
 		String name = "task" + System.currentTimeMillis();
-		Date beginDate = createBeginDate();
-		Date endDate = createEndDate();
+		Date beginDate = createSampleStartDate();
+		Date endDate = createSampleFinishDate();
 		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
 		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
 

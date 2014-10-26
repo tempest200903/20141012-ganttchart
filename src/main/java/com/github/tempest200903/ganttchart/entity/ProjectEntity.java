@@ -1,7 +1,9 @@
 package com.github.tempest200903.ganttchart.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -54,9 +56,16 @@ public class ProjectEntity {
 		return ganttEntityList;
 	}
 
+	static Date createBeginDate() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+		calendar.set(2014, 2, 3); // 2014年03月03日 月曜日
+		Date beginDate = calendar.getTime();
+		return beginDate;
+	}
+
 	public static ProjectEntity createSampleProjectEntity() {
 		String name = "project1";
-		Date beginDate = GanttEntity.createBeginDate();
+		Date beginDate = ProjectEntity.createBeginDate();
 		List<GanttEntity> ganttEntityList = createGanttEntityList();
 		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
 				ganttEntityList);

@@ -57,7 +57,7 @@ class DateLinePainterType1 extends DateLinePainter {
 		System.out.println("widthPerDay = " + widthPerDay);
 		System.out.println("relativeTime = " + relativeTime);
 		System.out.println("dayRate = " + dayRate);
-		return (int)(xOffset + widthPerDay *  dayRate);
+		return (int) (xOffset + widthPerDay * dayRate);
 	}
 
 	private int calcYAxis(int taskIndex, int height) {
@@ -125,4 +125,5 @@ class DateLinePainterType1 extends DateLinePainter {
 		int width = calcXAxis(finishDate) - x;
 		g.drawRect(x, y, width, height);
 	}
+
 }
