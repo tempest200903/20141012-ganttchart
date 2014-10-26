@@ -149,9 +149,9 @@ class GanttFrame extends JInternalFrame {
 			String duration = String.valueOf(taskEntity.getDuration());
 			table.getModel().setValueAt(duration, rowIndex, 2);
 
-			// beginDate
-			String beginDate = String.valueOf(taskEntity.getBeginDate());
-			table.getModel().setValueAt(beginDate, rowIndex, 3);
+			// startDate
+			String startDate = String.valueOf(taskEntity.getStartDate());
+			table.getModel().setValueAt(startDate, rowIndex, 3);
 
 			// finish
 			String endDate = String.valueOf(taskEntity.getFinishDate());

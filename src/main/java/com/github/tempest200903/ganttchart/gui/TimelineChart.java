@@ -51,9 +51,9 @@ class TimelineChart extends JComponent {
 	private List<Calendar> createCalendarList() {
 		List<Calendar> dateList = Lists.newArrayList();
 		ProjectEntity projectEntity = ganttEntity.getProjectEntity();
-		Date beginDate = projectEntity.getBeginDate();
+		Date startDate = projectEntity.getStartDate();
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(beginDate);
+		calendar.setTime(startDate);
 		for (int i = 0; i < 14; i++) {
 			dateList.add((Calendar) calendar.clone());
 			calendar.add(Calendar.DATE, 1);

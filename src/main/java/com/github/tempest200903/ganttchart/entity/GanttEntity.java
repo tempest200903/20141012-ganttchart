@@ -1,5 +1,6 @@
 package com.github.tempest200903.ganttchart.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,24 +38,21 @@ public class GanttEntity {
 	}
 
 	public static GanttEntity createSampleGanttEntity() {
-		List<TaskEntity> taskEntityList = Lists.newArrayList(
-				createSampleTaskEntity(), createSampleTaskEntity(),
-				createSampleTaskEntity(), createSampleTaskEntity(),
-				createSampleTaskEntity(), createSampleTaskEntity(),
-				createSampleTaskEntity(), createSampleTaskEntity());
-		GanttEntity ganttEntity = new GanttEntity(taskEntityList);
+		GanttEntity ganttEntity = new GanttEntity();
+		for (int i = 0; i < 8; i++) {
+			TaskEntity taskEntity = ganttEntity.createSampleTaskEntity();
+			taskEntity.setName(String.format("task%d", i));
+		}
 		return ganttEntity;
 	}
 
-	static TaskEntity createSampleTaskEntity() {
+	TaskEntity createSampleTaskEntity() {
 		String name = "task" + System.currentTimeMillis();
-		Date beginDate = createSampleStartDate();
-		Date endDate = createSampleFinishDate();
 		TaskConstraintType constraintType = TaskConstraintType.AS_SOON_AS_POSSIBLE;
 		TaskCalendarEntity taskCalendar = new TaskCalendarEntity();
-
-		TaskEntity taskEntity = new TaskEntity(name, beginDate, endDate,
-				constraintType, taskCalendar);
+		TaskEntity taskEntity = new TaskEntity(name, constraintType,
+				taskCalendar, 1000 * 60 * 60 * 24, this);
+		taskEntityList.add(taskEntity);
 		return taskEntity;
 	}
 
@@ -64,11 +62,10 @@ public class GanttEntity {
 	 * タスク。
 	 */
 	@NonNull
-	private List<TaskEntity> taskEntityList;
+	private List<TaskEntity> taskEntityList = new ArrayList<>();
 
-	public GanttEntity(List<TaskEntity> taskEntityList) {
+	public GanttEntity() {
 		super();
-		this.taskEntityList = taskEntityList;
 	}
 
 }

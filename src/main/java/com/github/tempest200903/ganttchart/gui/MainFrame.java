@@ -22,9 +22,7 @@ import com.google.common.collect.Lists;
 @SuppressWarnings("unused")
 class MainFrame extends JFrame {
 
-	static GanttEntity createSampleGanttEntity() {
-		return GanttEntity.createSampleGanttEntity();
-	}
+	
 
 	/**
 	 * 

@@ -16,7 +16,7 @@ import com.google.common.collect.Lists;
  package entity {
  class ProjectEntity{
  String name;
- Date beginDate;
+ Date startDate;
  }
 
 
@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
  class TaskEntity{
  String name;
  int workTime;
- Date beginDate;
+ Date startDate;
  Date endDate;
  TaskConstraintType constraintType;
  Date constraintDate;
@@ -56,18 +56,18 @@ public class ProjectEntity {
 		return ganttEntityList;
 	}
 
-	static Date createBeginDate() {
+	static Date createStartDate() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 		calendar.set(2014, 2, 3); // 2014年03月03日 月曜日
-		Date beginDate = calendar.getTime();
-		return beginDate;
+		Date startDate = calendar.getTime();
+		return startDate;
 	}
 
 	public static ProjectEntity createSampleProjectEntity() {
 		String name = "project1";
-		Date beginDate = ProjectEntity.createBeginDate();
+		Date startDate = ProjectEntity.createStartDate();
 		List<GanttEntity> ganttEntityList = createGanttEntityList();
-		ProjectEntity projectEntity = new ProjectEntity(name, beginDate,
+		ProjectEntity projectEntity = new ProjectEntity(name, startDate,
 				ganttEntityList);
 		return projectEntity;
 	}
@@ -82,7 +82,7 @@ public class ProjectEntity {
 	 * 開始日付。
 	 */
 	@NonNull
-	public Date beginDate;
+	public Date startDate;
 
 	/**
 	 * ガント。
@@ -90,11 +90,11 @@ public class ProjectEntity {
 	@NonNull
 	public List<GanttEntity> ganttEntityList;
 
-	public ProjectEntity(String name, Date beginDate,
+	public ProjectEntity(String name, Date startDate,
 			List<GanttEntity> ganttEntityList) {
 		super();
 		this.name = name;
-		this.beginDate = beginDate;
+		this.startDate = startDate;
 		this.ganttEntityList = ganttEntityList;
 		for (GanttEntity ganttEntity : ganttEntityList) {
 			ganttEntity.setProjectEntity(this);

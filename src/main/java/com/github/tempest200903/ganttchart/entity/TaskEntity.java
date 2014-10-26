@@ -1,6 +1,8 @@
 package com.github.tempest200903.ganttchart.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -28,13 +30,11 @@ public class TaskEntity {
 	/**
 	 * 開始日付。
 	 */
-	@NonNull
-	private Date beginDate;
+	private Date startDate;
 
 	/**
 	 * 終了日付。
 	 */
-	@NonNull
 	private Date finishDate;
 
 	/**
@@ -60,12 +60,27 @@ public class TaskEntity {
 	private TaskCalendarEntity taskCalendar;
 
 	/**
-	 * 期間。単位は秒。計算不能な場合は null 。
-	 * 
-	 * @return
+	 * 期間。単位は秒。
 	 */
-	public Long getDuration() {
-		return finishDate.getTime() - beginDate.getTime();
+	@NonNull
+	private long duration;
+
+	@NonNull
+	private GanttEntity ganttEntity;
+
+	private List<TaskEntity> predecessors = new ArrayList<>();
+
+	public Date getStartDate() {
+		return constraintType.getStartDate(this);
+	}
+
+	public Date getFinishDate() {
+//		return finishDate;
+		return constraintType.getFinishDate(this);
+	}
+
+	Date getProjectStartDate() {
+		return getGanttEntity().getProjectEntity().getStartDate();
 	}
 
 }

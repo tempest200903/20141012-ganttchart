@@ -49,7 +49,7 @@ class DateLinePainterType1 extends DateLinePainter {
 	}
 
 	private int calcXAxis(Date date) {
-		long projectBeginTime = getProjectEntity().getBeginDate().getTime();
+		long projectBeginTime = getProjectEntity().getStartDate().getTime();
 		long relativeTime = date.getTime() - projectBeginTime;
 		double dayRate = relativeTime / (1000 * 60 * 60 * 24);
 		System.out.println("date.getTime() = " + date.getTime());
@@ -117,11 +117,11 @@ class DateLinePainterType1 extends DateLinePainter {
 	void paintTaskBar(Graphics g, int taskIndex, TaskEntity taskEntity) {
 		g.setColor(Color.GREEN);
 		// TODO 開始日時から終了日時までを描画する。
-		Date beginDate = taskEntity.getBeginDate();
+		Date startDate = taskEntity.getStartDate();
 		Date finishDate = taskEntity.getFinishDate();
 		int height = getTablePainter().getRowHeight();
 		int y = calcYAxis(taskIndex, height);
-		int x = calcXAxis(beginDate);
+		int x = calcXAxis(startDate);
 		int width = calcXAxis(finishDate) - x;
 		g.drawRect(x, y, width, height);
 	}
