@@ -10,7 +10,8 @@ import java.util.Date;
  */
 class TaskConstraintTypeAsSoonAsPossible extends TaskConstraintType {
 
-    private static final TaskConstraintTypeAsSoonAsPossible INSTANCE = new TaskConstraintTypeAsSoonAsPossible();
+    private static final TaskConstraintTypeAsSoonAsPossible INSTANCE =
+            new TaskConstraintTypeAsSoonAsPossible();
 
     static TaskConstraintTypeAsSoonAsPossible getInstance() {
         return INSTANCE;
