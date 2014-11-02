@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_20" class="java.beans.XMLDecoder">
+ <object class="com.github.tempest200903.ganttchart.entity.GanttEntity" id="GanttEntity0">
+  <void property="taskEntityList">
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task0</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task1</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task2</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task3</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task4</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task5</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task6</string>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="name">
+      <string>task7</string>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

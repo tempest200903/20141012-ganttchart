@@ -93,6 +93,9 @@ public class TaskEntity {
 	 */
 	private int workTime;
 
+	public TaskEntity() {
+	}
+
 	TaskEntity(int number, String name, TaskConstraintType constraintType,
 			TaskCalendarEntity taskCalendar, long duration,
 			GanttEntity ganttEntity) {

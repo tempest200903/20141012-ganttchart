@@ -63,10 +63,11 @@ public class GanttEntity {
 	}
 
 	private static void exportGanttEntity(GanttEntity ganttEntity) {
-		try {
-			OutputStream outputStream = new FileOutputStream("ganttEntity.xml");
-			XMLEncoder xmlEncoder = new XMLEncoder(outputStream);
+		System.out.println("begin exportGanttEntity");
+		try (OutputStream outputStream = new FileOutputStream("ganttEntity.xml");
+				XMLEncoder xmlEncoder = new XMLEncoder(outputStream)) {
 			xmlEncoder.writeObject(ganttEntity);
+			System.out.println("end exportGanttEntity");
 		} catch (IOException e) {
 			e.printStackTrace(); // TODO catch
 		}
