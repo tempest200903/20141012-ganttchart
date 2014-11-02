@@ -1,7 +1,6 @@
 package com.github.tempest200903.ganttchart.entity;
 
 import java.beans.XMLEncoder;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;

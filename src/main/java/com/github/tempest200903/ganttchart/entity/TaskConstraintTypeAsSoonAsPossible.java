@@ -4,21 +4,26 @@ import java.util.Date;
 
 /**
  * できるだけ早く
+ * 
  * @author tempest200903
  *
  */
 class TaskConstraintTypeAsSoonAsPossible extends TaskConstraintType {
 
-	@Override
-	Date getStartDate(TaskEntity taskEntity) {
-		// TODO Auto-generated method stub
-		return taskEntity.getProjectStartDate();
-	}
+    private static final TaskConstraintTypeAsSoonAsPossible INSTANCE = new TaskConstraintTypeAsSoonAsPossible();
 
-	@Override
-	Date getFinishDate(TaskEntity taskEntity) {
-		// TODO Auto-generated method stub
-		return addDurationToStartDate(taskEntity);
-	}
+    static TaskConstraintTypeAsSoonAsPossible getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    Date getStartDate(TaskEntity taskEntity) {
+        return taskEntity.getProjectStartDate();
+    }
+
+    @Override
+    Date getFinishDate(TaskEntity taskEntity) {
+        return addDurationToStartDate(taskEntity);
+    }
 
 }

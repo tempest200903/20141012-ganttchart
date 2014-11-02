@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -123,8 +124,8 @@ class GanttFrame extends JInternalFrame {
 
 	private JScrollPane createTimelineChartPane() {
 		timelineScrollPane = new JScrollPane(timelineChart,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		timelineChart.setPreferredSize(screenSize);
 		return timelineScrollPane;

@@ -3,21 +3,10 @@ package com.github.tempest200903.ganttchart.gui;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
-
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 
-import com.github.tempest200903.ganttchart.entity.GanttEntity;
 import com.github.tempest200903.ganttchart.entity.ProjectEntity;
-import com.github.tempest200903.ganttchart.entity.TaskCalendarEntity;
-import com.github.tempest200903.ganttchart.entity.TaskConstraintType;
-import com.github.tempest200903.ganttchart.entity.TaskEntity;
-import com.google.common.collect.Lists;
 
 @SuppressWarnings("unused")
 class MainFrame extends JFrame {
