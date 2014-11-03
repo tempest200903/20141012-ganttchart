@@ -38,10 +38,26 @@ public class TaskConstraintTypeAsSoonAsPossibleTest {
         }
     }
 
-    // @Test
-    // public void testGetFinishDate() {
-    // // type.getFinishDate(taskEntity);
-    // fail();
-    // }
+    @Test
+    public void testGetFinishDate() {
+        List<TaskEntity> taskEntityList = projectEntity.getGanttEntityList()
+                .get(0).getTaskEntityList();
+        {
+            TaskEntity taskEntity1 = taskEntityList.get(0);
+            Date actual = type.getFinishDate(taskEntity1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2014, 2, 4);
+            Date expected = calendar.getTime();
+            assertThat(actual, DateMatchers.sameDay(expected));
+        }
+        {
+            TaskEntity taskEntity2 = taskEntityList.get(1);
+            Date actual = type.getFinishDate(taskEntity2);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2014, 2, 5);
+            Date expected = calendar.getTime();
+            assertThat(actual, DateMatchers.sameDay(expected));
+        }
+    }
 
 }
