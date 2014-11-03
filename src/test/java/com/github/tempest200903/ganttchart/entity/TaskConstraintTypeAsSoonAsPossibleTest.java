@@ -1,14 +1,13 @@
 package com.github.tempest200903.ganttchart.entity;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.exparity.hamcrest.date.DateMatchers;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 public class TaskConstraintTypeAsSoonAsPossibleTest {
 
@@ -19,16 +18,30 @@ public class TaskConstraintTypeAsSoonAsPossibleTest {
 
     @Test
     public void testGetStartDate() {
-        TaskEntity taskEntity1 = projectEntity.getGanttEntityList().get(0)
-                .getTaskEntityList().get(0);
-        Date startDate1 = type.getStartDate(taskEntity1);
-        assertThat(startDate1, is(notNullValue()));
+        List<TaskEntity> taskEntityList = projectEntity.getGanttEntityList()
+                .get(0).getTaskEntityList();
+        {
+            TaskEntity taskEntity1 = taskEntityList.get(0);
+            Date actual = type.getStartDate(taskEntity1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2014, 2, 3);
+            Date expected = calendar.getTime();
+            assertThat(actual, DateMatchers.sameDay(expected));
+        }
+        {
+            TaskEntity taskEntity2 = taskEntityList.get(1);
+            Date actual = type.getStartDate(taskEntity2);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2014, 2, 4);
+            Date expected = calendar.getTime();
+            assertThat(actual, DateMatchers.sameDay(expected));
+        }
     }
 
-    @Test
-    public void testGetFinishDate() {
-        // type.getFinishDate(taskEntity);
-        fail();
-    }
+    // @Test
+    // public void testGetFinishDate() {
+    // // type.getFinishDate(taskEntity);
+    // fail();
+    // }
 
 }
