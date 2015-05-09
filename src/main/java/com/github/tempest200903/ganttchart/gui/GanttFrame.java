@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,11 +35,24 @@ class GanttFrame extends JInternalFrame {
 	 */
     private static final long serialVersionUID = 1L;
 
+    static String toDateString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm");
+        return dateFormat.format(date);
+    }
+
+    static String toDurationString(long durationMilliseconds) {
+        double durationDays = ((double) durationMilliseconds)
+                / TimeUnit.DAYS.toMillis(1);
+        String durationString = String.format("%.2f days", durationDays);
+        return durationString;
+    }
+
     private GanttEntity ganttEntity;
 
     private JTable table;
 
     private TimelineChart timelineChart;
+
     private JScrollPane timelineScrollPane;
 
     private TextAction zoomInAction = new TextAction("zoom in") {
@@ -160,11 +176,13 @@ class GanttFrame extends JInternalFrame {
             table.getModel().setValueAt(durationString, rowIndex, 2);
 
             // startDate
-            String startDate = String.valueOf(taskEntity.getStartDate());
-            table.getModel().setValueAt(startDate, rowIndex, 3);
+            Date startDate = taskEntity.getStartDate();
+            String startDateString = toDateString(startDate);
+            table.getModel().setValueAt(startDateString, rowIndex, 3);
 
-            // finish
-            String endDate = String.valueOf(taskEntity.getFinishDate());
+            // finishDate
+            Date finishDate = taskEntity.getFinishDate();
+            String endDate = toDateString(finishDate);
             table.getModel().setValueAt(endDate, rowIndex, 4);
 
             // predecessorList
@@ -214,12 +232,5 @@ class GanttFrame extends JInternalFrame {
             s.append(number + " ");
         }
         return s.toString();
-    }
-
-    static String toDurationString(long durationMilliseconds) {
-        double durationDays = ((double) durationMilliseconds)
-                / TimeUnit.DAYS.toMillis(1);
-        String durationString = String.format("%.2f days", durationDays);
-        return durationString;
     }
 }
