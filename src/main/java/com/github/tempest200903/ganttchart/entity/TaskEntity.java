@@ -36,7 +36,7 @@ public class TaskEntity {
 	private Date deadline;
 
 	/**
-	 * 期間。単位は秒。
+	 * 期間。単位はミリ秒。
 	 */
 	@Getter
 	private long duration;
