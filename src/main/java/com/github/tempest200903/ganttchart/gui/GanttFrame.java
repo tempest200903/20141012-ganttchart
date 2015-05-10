@@ -233,4 +233,5 @@ class GanttFrame extends JInternalFrame {
         }
         return s.toString();
     }
+
 }

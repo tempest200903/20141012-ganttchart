@@ -17,6 +17,10 @@ import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
 /**
+ * タイムラインを描画するコンポーネント。
+ * <p>
+ * プロトタイプ画像 document/images/screenshot-g-000525.jpg
+ * 
  * @author tempest200903
  *
  */
@@ -85,28 +89,30 @@ class TimelineChart extends JComponent {
      * TaskEntity を描画する。
      * 
      * @param g
+     *            グラフィックス。
      * @param previousPaintingBounds
+     *            直前のグリッド線を描画する領域。
      * @param taskIndex
      *            TODO
      * @param taskEntity
-     * @return 描画領域。
+     * @return グリッド線を描画する領域。
      */
     private Rectangle paintTaskEntity(Graphics g,
             Rectangle previousPaintingBounds, int taskIndex,
             TaskEntity taskEntity) {
         // 描画の準備。
-        // FontMetrics fontMetrics = g.getFontMetrics();
-        // int fontHeight = fontMetrics.getHeight();
-        g.setColor(Color.RED);
-        Rectangle currentPaintingBounds = new Rectangle();
+        g.setColor(Color.GRAY);
 
-        // 下線を描画する。
+        // グリッド線を描画する。
         int x1 = previousPaintingBounds.x;
         int y1 = previousPaintingBounds.y + previousPaintingBounds.height
                 + tablePainter.getRowHeight();
         int x2 = previousPaintingBounds.x + previousPaintingBounds.width;
         int y2 = y1;
         g.drawLine(x1, y1, x2, y2);
+
+        // グリッド線を描画する領域。
+        Rectangle currentPaintingBounds = new Rectangle();
 
         // currentPaintingBounds を計算する。
         currentPaintingBounds.x = x1;
@@ -115,7 +121,9 @@ class TimelineChart extends JComponent {
         currentPaintingBounds.width = x2 - x1;
         currentPaintingBounds.height = y1 - currentPaintingBounds.y;
 
+        // タスクを描画する。
         timelinePainter.paintTaskBar(g, taskIndex, taskEntity);
+
         return currentPaintingBounds;
     }
 
