@@ -19,7 +19,7 @@ import com.github.tempest200903.ganttchart.entity.TaskEntity;
  * @author tempest200903
  *
  */
-class DateLinePainterType1 extends DateLinePainter {
+class TimelinePainterType1 extends TimelinePainter {
 
 	static int[] HOURS = new int[12];
 
@@ -44,7 +44,7 @@ class DateLinePainterType1 extends DateLinePainter {
 	 */
 	private int widthPerDay = Integer.MAX_VALUE;
 
-	DateLinePainterType1(ProjectEntity projectEntity, TablePainter tablePainter) {
+	TimelinePainterType1(ProjectEntity projectEntity, TablePainter tablePainter) {
 		super(projectEntity, tablePainter);
 	}
 

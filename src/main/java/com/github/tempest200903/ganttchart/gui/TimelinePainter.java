@@ -8,7 +8,7 @@ import java.util.List;
 import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 
-abstract class DateLinePainter {
+abstract class TimelinePainter {
 
 	private TablePainter tablePainter;
 
@@ -22,7 +22,7 @@ abstract class DateLinePainter {
 		return tablePainter;
 	}
 
-	DateLinePainter(ProjectEntity projectEntity, TablePainter tablePainter) {
+	TimelinePainter(ProjectEntity projectEntity, TablePainter tablePainter) {
 		super();
 		this.projectEntity = projectEntity;
 		this.tablePainter = tablePainter;

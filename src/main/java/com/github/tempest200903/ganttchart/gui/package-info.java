@@ -36,8 +36,8 @@ package com.github.tempest200903.ganttchart.gui;
 
  package gui {
 
- GanttChart "1" o- "1"  DateLinePainter
- DateLinePainter <|-- DateLinePainterType1
+ GanttChart "1" o- "1"  TimelinePainter
+ TimelinePainter <|-- TimelinePainterType1
 
  }
  @enduml

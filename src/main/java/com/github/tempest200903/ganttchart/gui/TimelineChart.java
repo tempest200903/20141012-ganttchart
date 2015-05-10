@@ -22,136 +22,136 @@ import com.google.common.collect.Lists;
  */
 class TimelineChart extends JComponent {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@NonNull
-	private GanttEntity ganttEntity;
+    @NonNull
+    private GanttEntity ganttEntity;
 
-	@NonNull
-	private DateLinePainter dateLinePainter;
+    @NonNull
+    private TimelinePainter timelinePainter;
 
-	@NonNull
-	private TablePainter tablePainter;
+    @NonNull
+    private TablePainter tablePainter;
 
-	TimelineChart(GanttEntity ganttEntity, TablePainter tablePainter) {
-		super();
-		this.ganttEntity = ganttEntity;
-		this.tablePainter = tablePainter;
-		assert ganttEntity != null : "ganttEntity";
-		ProjectEntity projectEntity = ganttEntity.getProjectEntity();
-		dateLinePainter = new DateLinePainterType1(projectEntity, tablePainter);
+    TimelineChart(GanttEntity ganttEntity, TablePainter tablePainter) {
+        super();
+        this.ganttEntity = ganttEntity;
+        this.tablePainter = tablePainter;
+        assert ganttEntity != null : "ganttEntity";
+        ProjectEntity projectEntity = ganttEntity.getProjectEntity();
+        timelinePainter = new TimelinePainterType1(projectEntity, tablePainter);
 
-		System.out.println("this.tablePainter.getRowHeight() =: "
-				+ this.tablePainter.getHeaderHeight());
-	}
+        System.out.println("this.tablePainter.getRowHeight() =: "
+                + this.tablePainter.getHeaderHeight());
+    }
 
-	private List<Calendar> createCalendarList() {
-		List<Calendar> dateList = Lists.newArrayList();
-		ProjectEntity projectEntity = ganttEntity.getProjectEntity();
-		Date startDate = projectEntity.getStartDate();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(startDate);
-		for (int i = 0; i < 14; i++) {
-			dateList.add((Calendar) calendar.clone());
-			calendar.add(Calendar.DATE, 1);
-		}
-		return dateList;
-	}
+    private List<Calendar> createCalendarList() {
+        List<Calendar> dateList = Lists.newArrayList();
+        ProjectEntity projectEntity = ganttEntity.getProjectEntity();
+        Date startDate = projectEntity.getStartDate();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        for (int i = 0; i < 14; i++) {
+            dateList.add((Calendar) calendar.clone());
+            calendar.add(Calendar.DATE, 1);
+        }
+        return dateList;
+    }
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		Rectangle paintingBounds = paintDateLine(g);
-		paintTaskEntityList(g, paintingBounds);
-	}
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Rectangle paintingBounds = paintDateLine(g);
+        paintTaskEntityList(g, paintingBounds);
+    }
 
-	/**
-	 * 日付ラインを描画する。
-	 * 
-	 * @param g
-	 * @return
-	 */
-	private Rectangle paintDateLine(Graphics g) {
-		List<Calendar> calendarList = createCalendarList();
-		int headerHeight = tablePainter.getHeaderHeight();
-		dateLinePainter.paintDateLine(g, headerHeight, calendarList);
-		return dateLinePainter.getPaintingBounds();
-	}
+    /**
+     * 日付ラインを描画する。
+     * 
+     * @param g
+     * @return
+     */
+    private Rectangle paintDateLine(Graphics g) {
+        List<Calendar> calendarList = createCalendarList();
+        int headerHeight = tablePainter.getHeaderHeight();
+        timelinePainter.paintDateLine(g, headerHeight, calendarList);
+        return timelinePainter.getPaintingBounds();
+    }
 
-	/**
-	 * TaskEntity を描画する。
-	 * 
-	 * @param g
-	 * @param previousPaintingBounds
-	 * @param taskIndex
-	 *            TODO
-	 * @param taskEntity
-	 * @return 描画領域。
-	 */
-	private Rectangle paintTaskEntity(Graphics g,
-			Rectangle previousPaintingBounds, int taskIndex,
-			TaskEntity taskEntity) {
-		// 描画の準備。
-		// FontMetrics fontMetrics = g.getFontMetrics();
-		// int fontHeight = fontMetrics.getHeight();
-		g.setColor(Color.RED);
-		Rectangle currentPaintingBounds = new Rectangle();
+    /**
+     * TaskEntity を描画する。
+     * 
+     * @param g
+     * @param previousPaintingBounds
+     * @param taskIndex
+     *            TODO
+     * @param taskEntity
+     * @return 描画領域。
+     */
+    private Rectangle paintTaskEntity(Graphics g,
+            Rectangle previousPaintingBounds, int taskIndex,
+            TaskEntity taskEntity) {
+        // 描画の準備。
+        // FontMetrics fontMetrics = g.getFontMetrics();
+        // int fontHeight = fontMetrics.getHeight();
+        g.setColor(Color.RED);
+        Rectangle currentPaintingBounds = new Rectangle();
 
-		// 下線を描画する。
-		int x1 = previousPaintingBounds.x;
-		int y1 = previousPaintingBounds.y + previousPaintingBounds.height
-				+ tablePainter.getRowHeight();
-		int x2 = previousPaintingBounds.x + previousPaintingBounds.width;
-		int y2 = y1;
-		g.drawLine(x1, y1, x2, y2);
+        // 下線を描画する。
+        int x1 = previousPaintingBounds.x;
+        int y1 = previousPaintingBounds.y + previousPaintingBounds.height
+                + tablePainter.getRowHeight();
+        int x2 = previousPaintingBounds.x + previousPaintingBounds.width;
+        int y2 = y1;
+        g.drawLine(x1, y1, x2, y2);
 
-		// currentPaintingBounds を計算する。
-		currentPaintingBounds.x = x1;
-		currentPaintingBounds.y = previousPaintingBounds.y
-				+ previousPaintingBounds.height;
-		currentPaintingBounds.width = x2 - x1;
-		currentPaintingBounds.height = y1 - currentPaintingBounds.y;
+        // currentPaintingBounds を計算する。
+        currentPaintingBounds.x = x1;
+        currentPaintingBounds.y = previousPaintingBounds.y
+                + previousPaintingBounds.height;
+        currentPaintingBounds.width = x2 - x1;
+        currentPaintingBounds.height = y1 - currentPaintingBounds.y;
 
-		dateLinePainter.paintTaskBar(g, taskIndex, taskEntity);
-		return currentPaintingBounds;
-	}
+        timelinePainter.paintTaskBar(g, taskIndex, taskEntity);
+        return currentPaintingBounds;
+    }
 
-	/**
-	 * タスクリストを描画する。
-	 * 
-	 * @param g
-	 * @param previousPaintingBounds
-	 *            描画の基点座標。
-	 */
-	private void paintTaskEntityList(Graphics g,
-			Rectangle previousPaintingBounds) {
-		List<TaskEntity> taskEntityList = this.ganttEntity.getTaskEntityList();
-		Rectangle currentPaintingBounds = previousPaintingBounds;
-		for (int taskIndex = 0; taskIndex < taskEntityList.size(); taskIndex++) {
-			TaskEntity taskEntity = taskEntityList.get(taskIndex);
-			currentPaintingBounds = paintTaskEntity(g, currentPaintingBounds,
-					taskIndex, taskEntity);
-		}
-	}
+    /**
+     * タスクリストを描画する。
+     * 
+     * @param g
+     * @param previousPaintingBounds
+     *            描画の基点座標。
+     */
+    private void paintTaskEntityList(Graphics g,
+            Rectangle previousPaintingBounds) {
+        List<TaskEntity> taskEntityList = this.ganttEntity.getTaskEntityList();
+        Rectangle currentPaintingBounds = previousPaintingBounds;
+        for (int taskIndex = 0; taskIndex < taskEntityList.size(); taskIndex++) {
+            TaskEntity taskEntity = taskEntityList.get(taskIndex);
+            currentPaintingBounds = paintTaskEntity(g, currentPaintingBounds,
+                    taskIndex, taskEntity);
+        }
+    }
 
-	/**
-	 * ズームインする。
-	 */
-	void zoomIn() {
-		// TODO Auto-generated method stub
-		System.out.println("zoomIn");
-	}
+    /**
+     * ズームインする。
+     */
+    void zoomIn() {
+        // TODO Auto-generated method stub
+        System.out.println("zoomIn");
+    }
 
-	/**
-	 * ズームアウトする。
-	 */
-	void zoomOut() {
-		// TODO Auto-generated method stub
-		System.out.println("zoomOut");
+    /**
+     * ズームアウトする。
+     */
+    void zoomOut() {
+        // TODO Auto-generated method stub
+        System.out.println("zoomOut");
 
-	}
+    }
 
 }
