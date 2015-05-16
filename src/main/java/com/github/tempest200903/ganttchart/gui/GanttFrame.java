@@ -11,9 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.JTableHeader;
 import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
@@ -28,8 +26,6 @@ class GanttFrame extends JInternalFrame {
     private GanttEntity ganttEntity;
 
     private GanttTable ganttTable;
-
-    private JTable table;
 
     private TimelineChart timelineChart;
 
@@ -59,7 +55,8 @@ class GanttFrame extends JInternalFrame {
         super();
         this.ganttEntity = ganttEntity;
         this.ganttTable = new GanttTable(ganttEntity);
-        timelineChart = new TimelineChart(ganttEntity, new JTablePainter(table));
+        timelineChart = new TimelineChart(ganttEntity, new JTablePainter(
+                ganttTable));
 
         setTitle("Gantt");
         setLayout(new BorderLayout());
@@ -127,12 +124,13 @@ class GanttFrame extends JInternalFrame {
         super.setVisible(aFlag);
         if (isVisible()) {
             printSize();
-            JTableHeader header = table.getTableHeader();
-            int preferredWidth = header.getWidth();
-            int preferredHeight = header.getHeight() + 40;
+            Dimension tableHeaderSize = ganttTable.getTableHeaderSize();
+            int preferredWidth = (int) tableHeaderSize.getWidth();
+            int preferredHeight = (int) (tableHeaderSize.getHeight() + 40);
             Dimension preferredSize = new Dimension(preferredWidth,
                     preferredHeight);
-            header.setPreferredSize(preferredSize);
+            // header.setPreferredSize(preferredSize);
+            ganttTable.setPreferredSizeOfHeader(preferredSize);
         }
     }
 
