@@ -39,6 +39,7 @@ public class TaskEntity {
 	 * 期間。単位はミリ秒。
 	 */
 	@Getter
+	@Setter
 	private long duration;
 
 	/**

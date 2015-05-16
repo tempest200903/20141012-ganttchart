@@ -6,9 +6,9 @@ import com.google.common.base.Preconditions;
 
 class JTablePainter extends TablePainter {
 
-    private GanttTable ganttTable;
+    private TaskTable ganttTable;
 
-    JTablePainter(@Nonnull GanttTable ganttTable1) {
+    JTablePainter(@Nonnull TaskTable ganttTable1) {
         super();
         Preconditions.checkNotNull("ganttTable1", ganttTable1);
         this.ganttTable = ganttTable1;

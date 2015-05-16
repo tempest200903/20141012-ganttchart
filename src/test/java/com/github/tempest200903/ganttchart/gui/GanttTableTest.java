@@ -21,7 +21,7 @@ public class GanttTableTest {
 
     @Test
     public void testToDurationString() {
-        String actual = GanttTable.toDurationString(86400000L);
+        String actual = TaskTable.toDurationString(86400000L);
         String expected = "1.00 days";
         assertThat(actual, is(expected));
     }
@@ -29,7 +29,7 @@ public class GanttTableTest {
     @Test
     public void testToStartDateString() {
         Date startDate = createStartDate();
-        String actual = GanttTable.toDateString(startDate);
+        String actual = TaskTable.toDateString(startDate);
         String expected = "14/03/03 00:00";
         assertThat(actual, is(expected));
     }

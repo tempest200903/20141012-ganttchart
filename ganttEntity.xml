@@ -4,6 +4,9 @@
   <void property="taskEntityList">
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task0</string>
      </void>
@@ -11,6 +14,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task1</string>
      </void>
@@ -18,6 +24,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task2</string>
      </void>
@@ -25,6 +34,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task3</string>
      </void>
@@ -32,6 +44,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task4</string>
      </void>
@@ -39,6 +54,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task5</string>
      </void>
@@ -46,6 +64,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task6</string>
      </void>
@@ -53,6 +74,9 @@
    </void>
    <void method="add">
     <object class="com.github.tempest200903.ganttchart.entity.TaskEntity">
+     <void property="duration">
+      <long>86400000</long>
+     </void>
      <void property="name">
       <string>task7</string>
      </void>

@@ -25,7 +25,7 @@ class GanttFrame extends JInternalFrame {
 
     private GanttEntity ganttEntity;
 
-    private GanttTable ganttTable;
+    private TaskTable ganttTable;
 
     private TimelineChart timelineChart;
 
@@ -54,7 +54,7 @@ class GanttFrame extends JInternalFrame {
     public GanttFrame(GanttEntity ganttEntity) {
         super();
         this.ganttEntity = ganttEntity;
-        this.ganttTable = new GanttTable(ganttEntity);
+        this.ganttTable = new TaskTable(ganttEntity);
         timelineChart = new TimelineChart(ganttEntity, new JTablePainter(
                 ganttTable));
 

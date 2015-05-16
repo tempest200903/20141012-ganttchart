@@ -23,22 +23,23 @@ package gui {
    
     ProjectFrame "1" o- "1" ProjectEntity
     GanttFrame "1" o- "1" GanttEntity
-    GanttChart "1" o- "1" GanttEntity
-    GanttFrame "1" o- "1" GanttChart
-    GanttFrame "1" o- "1" GanttTable
-    GanttTable "1" o- "1" JTable
+    TaskTable "1" o- "1" GanttEntity
+    TimelineChart "1" o- "1" GanttEntity
+    GanttFrame "1" o- "1" TimelineChart
+    GanttFrame "1" o- "1" TaskTable
+    TaskTable "1" o- "1" JTable
 
 }
 @enduml
  */
 
 /*
-@startuml GanttChart.puml.png
-title ClassDiagram GanttChart
+@startuml TimelineChart.puml.png
+title ClassDiagram TimelineChart
 
 package gui {
 
-    GanttChart "1" o- "1"  TimelinePainter
+    TimelineChart "1" o- "1"  TimelinePainter
     TimelinePainter <|-- TimelinePainterType1
 
 }
