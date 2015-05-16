@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import static org.junit.Assert.assertThat;
 
-public class GanttFrameTest {
+public class GanttTableTest {
 
     private static Date createStartDate() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -21,7 +21,7 @@ public class GanttFrameTest {
 
     @Test
     public void testToDurationString() {
-        String actual = GanttFrame.toDurationString(86400000L);
+        String actual = GanttTable.toDurationString(86400000L);
         String expected = "1.00 days";
         assertThat(actual, is(expected));
     }
@@ -29,7 +29,7 @@ public class GanttFrameTest {
     @Test
     public void testToStartDateString() {
         Date startDate = createStartDate();
-        String actual = GanttFrame.toDateString(startDate);
+        String actual = GanttTable.toDateString(startDate);
         String expected = "14/03/03 00:00";
         assertThat(actual, is(expected));
     }

@@ -1,45 +1,47 @@
 package com.github.tempest200903.ganttchart.gui;
 
 /*
- @startuml gui.puml.png
- title ClassDiagram gui
+@startuml gui.puml.png
+title ClassDiagram gui
 
- package entity {
+package entity {
 
- class ProjectEntity{
- }
- class GanttEntity{
- }
- ProjectEntity "1" o- "1..*"  GanttEntity
- GanttEntity "1" o- "1..*" TaskEntity
+    class ProjectEntity{
+    }
+    class GanttEntity{
+    }
+    ProjectEntity "1" o- "1..*"  GanttEntity
+    GanttEntity "1" o- "1..*" TaskEntity
 
- }
+}
 
- package gui {
+package gui {
 
- ApplicationMain "1" o- "1" MainFrame
- MainFrame "1" o- "1" ProjectFrame
- ProjectFrame "1" o- "1..*" GanttFrame
+    ApplicationMain "1" o- "1" MainFrame
+    MainFrame "1" o- "1" ProjectFrame
+    ProjectFrame "1" o- "1..*" GanttFrame
+   
+    ProjectFrame "1" o- "1" ProjectEntity
+    GanttFrame "1" o- "1" GanttEntity
+    GanttChart "1" o- "1" GanttEntity
+    GanttFrame "1" o- "1" GanttChart
+    GanttFrame "1" o- "1" GanttTable
+    GanttTable "1" o- "1" JTable
 
- ProjectFrame "1" o- "1" ProjectEntity
- GanttFrame "1" o- "1" GanttEntity
- GanttChart "1" o- "1" GanttEntity
- GanttFrame "1" o- "1" GanttChart
-
- }
- @enduml
+}
+@enduml
  */
 
 /*
- @startuml GanttChart.puml.png
- title ClassDiagram GanttChart
+@startuml GanttChart.puml.png
+title ClassDiagram GanttChart
 
- package gui {
+package gui {
 
- GanttChart "1" o- "1"  TimelinePainter
- TimelinePainter <|-- TimelinePainterType1
+    GanttChart "1" o- "1"  TimelinePainter
+    TimelinePainter <|-- TimelinePainterType1
 
- }
- @enduml
+}
+@enduml
  */
 

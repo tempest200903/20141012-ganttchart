@@ -4,11 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -19,35 +14,20 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
-import com.github.tempest200903.ganttchart.entity.TaskDependencyEntity;
-import com.github.tempest200903.ganttchart.entity.TaskEntity;
-import com.google.common.collect.Lists;
 
 class GanttFrame extends JInternalFrame {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1L;
 
-    static String toDateString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm");
-        return dateFormat.format(date);
-    }
-
-    static String toDurationString(long durationMilliseconds) {
-        double durationDays = ((double) durationMilliseconds)
-                / TimeUnit.DAYS.toMillis(1);
-        String durationString = String.format("%.2f days", durationDays);
-        return durationString;
-    }
-
     private GanttEntity ganttEntity;
+
+    private GanttTable ganttTable;
 
     private JTable table;
 
@@ -78,7 +58,7 @@ class GanttFrame extends JInternalFrame {
     public GanttFrame(GanttEntity ganttEntity) {
         super();
         this.ganttEntity = ganttEntity;
-        this.table = createTable();
+        this.ganttTable = new GanttTable(ganttEntity);
         timelineChart = new TimelineChart(ganttEntity, new JTablePainter(table));
 
         setTitle("Gantt");
@@ -89,17 +69,6 @@ class GanttFrame extends JInternalFrame {
 
         JMenuBar menubar = createMenuBar();
         setJMenuBar(menubar);
-    }
-
-    private List<String> createHeaderValueList() {
-        String[] headerValueArray = { "number" // 番号。
-                , "name" // 名前。
-                , "duration" // 期間。
-                , "start date" // 開始日時。
-                , "finish date" // 終了日時。
-                , "predecessor" // 先行タスク。
-        };
-        return Lists.newArrayList(headerValueArray);
     }
 
     private JMenuBar createMenuBar() {
@@ -121,22 +90,8 @@ class GanttFrame extends JInternalFrame {
         return splitPane;
     }
 
-    private JTable createTable() {
-        List<String> headerValueList = createHeaderValueList();
-
-        List<TaskEntity> taskEntityList = ganttEntity.getTaskEntityList();
-        JTable table0 = new JTable(taskEntityList.size(),
-                headerValueList.size());
-        table0.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-        initialzeColumn(table0, headerValueList);
-        initialzeRow(table0, taskEntityList);
-        return table0;
-    }
-
     private JComponent createTablePane() {
-        JScrollPane scrollPane = new JScrollPane(table);
-        return scrollPane;
+        return ganttTable.createTablePane();
     }
 
     private JScrollPane createTimelineChartPane() {
@@ -146,50 +101,6 @@ class GanttFrame extends JInternalFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         timelineChart.setPreferredSize(screenSize);
         return timelineScrollPane;
-    }
-
-    private void initialzeColumn(JTable table, List<String> headerValueList) {
-        // 列ヘッダを用意する。
-        TableColumnModel columnModel = table.getTableHeader().getColumnModel();
-        for (int i = 0; i < headerValueList.size(); i++) {
-            TableColumn column = columnModel.getColumn(i);
-            column.setHeaderValue(headerValueList.get(i));
-        }
-    }
-
-    private void initialzeRow(JTable table, List<TaskEntity> taskEntityList) {
-        // 行を用意する。
-        for (int rowIndex = 0; rowIndex < taskEntityList.size(); rowIndex++) {
-            TaskEntity taskEntity = taskEntityList.get(rowIndex);
-
-            // number
-            String value0 = String.valueOf(rowIndex + 1);
-            table.getModel().setValueAt(value0, rowIndex, 0);
-
-            // name
-            String taskName = taskEntity.getName();
-            table.getModel().setValueAt(taskName, rowIndex, 1);
-
-            // duration
-            long durationMilliseconds = taskEntity.getDuration();
-            String durationString = toDurationString(durationMilliseconds);
-            table.getModel().setValueAt(durationString, rowIndex, 2);
-
-            // startDate
-            Date startDate = taskEntity.getStartDate();
-            String startDateString = toDateString(startDate);
-            table.getModel().setValueAt(startDateString, rowIndex, 3);
-
-            // finishDate
-            Date finishDate = taskEntity.getFinishDate();
-            String endDate = toDateString(finishDate);
-            table.getModel().setValueAt(endDate, rowIndex, 4);
-
-            // predecessorList
-            String predecessorList = toDisplayString(taskEntity
-                    .getPredecessorList());
-            table.getModel().setValueAt(predecessorList, rowIndex, 5);
-        }
     }
 
     /**
@@ -223,15 +134,6 @@ class GanttFrame extends JInternalFrame {
                     preferredHeight);
             header.setPreferredSize(preferredSize);
         }
-    }
-
-    private String toDisplayString(List<TaskDependencyEntity> predecessorList) {
-        StringBuilder s = new StringBuilder();
-        for (TaskDependencyEntity taskDependencyEntity : predecessorList) {
-            int number = taskDependencyEntity.getFrom().getNumber() + 1;
-            s.append(number + " ");
-        }
-        return s.toString();
     }
 
 }
