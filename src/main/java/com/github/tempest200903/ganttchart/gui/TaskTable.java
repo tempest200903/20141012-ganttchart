@@ -168,8 +168,8 @@ class TaskTable {
             for (int rowIndex = 0; rowIndex < source.getRowCount(); rowIndex++) {
                 int columnIndex = 2;
                 source.getColumnName(columnIndex);
-                String string = (String) source
-                        .getValueAt(rowIndex, columnIndex);
+                String string = (String) source.getValueAt(rowIndex,
+                        columnIndex);
                 System.out.println("rowIndex =: " + rowIndex);
                 System.out.println("columnIndex =: " + columnIndex);
                 System.out.println("value =: " + string);

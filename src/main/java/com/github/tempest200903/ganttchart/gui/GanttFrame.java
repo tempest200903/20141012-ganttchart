@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -16,7 +18,7 @@ import javax.swing.text.TextAction;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
 
-class GanttFrame extends JInternalFrame {
+class GanttFrame extends JInternalFrame implements PropertyChangeListener {
 
     /**
      * 
@@ -25,7 +27,7 @@ class GanttFrame extends JInternalFrame {
 
     private GanttEntity ganttEntity;
 
-    private TaskTable ganttTable;
+    private TaskTable taskTable;
 
     private TimelineChart timelineChart;
 
@@ -51,12 +53,13 @@ class GanttFrame extends JInternalFrame {
         }
     };
 
-    public GanttFrame(GanttEntity ganttEntity) {
+    public GanttFrame(GanttEntity ganttEntity1) {
         super();
-        this.ganttEntity = ganttEntity;
-        this.ganttTable = new TaskTable(ganttEntity);
-        timelineChart = new TimelineChart(ganttEntity, new JTablePainter(
-                ganttTable));
+        ganttEntity = ganttEntity1;
+        ganttEntity.addPropertyChangeListener(this);
+        taskTable = new TaskTable(ganttEntity1);
+        timelineChart = new TimelineChart(ganttEntity1, new JTablePainter(
+                taskTable));
 
         setTitle("Gantt");
         setLayout(new BorderLayout());
@@ -88,7 +91,7 @@ class GanttFrame extends JInternalFrame {
     }
 
     private JComponent createTablePane() {
-        return ganttTable.createTablePane();
+        return taskTable.createTablePane();
     }
 
     private JScrollPane createTimelineChartPane() {
@@ -120,17 +123,24 @@ class GanttFrame extends JInternalFrame {
     }
 
     @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("evt =: " + evt);
+        if (ganttEntity.equals(evt.getSource())) {
+            System.out.println("evt.getSource() =: " + evt.getSource());
+        }
+    }
+
+    @Override
     public void setVisible(boolean aFlag) {
         super.setVisible(aFlag);
         if (isVisible()) {
             printSize();
-            Dimension tableHeaderSize = ganttTable.getTableHeaderSize();
+            Dimension tableHeaderSize = taskTable.getTableHeaderSize();
             int preferredWidth = (int) tableHeaderSize.getWidth();
             int preferredHeight = (int) (tableHeaderSize.getHeight() + 40);
             Dimension preferredSize = new Dimension(preferredWidth,
                     preferredHeight);
-            // header.setPreferredSize(preferredSize);
-            ganttTable.setPreferredSizeOfHeader(preferredSize);
+            taskTable.setPreferredSizeOfHeader(preferredSize);
         }
     }
 

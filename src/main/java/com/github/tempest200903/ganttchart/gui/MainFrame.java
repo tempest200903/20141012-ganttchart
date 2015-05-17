@@ -44,8 +44,8 @@ class MainFrame extends JFrame {
 
 	private ProjectFrame createProjectFrame(ProjectEntity projectEntity) {
 		ProjectFrame projectFrame = new ProjectFrame(projectEntity);
-		int initialHeight = (int) (SCREEN_SIZE.height * 0.8);
-		int initialWidth = (int) (SCREEN_SIZE.width * 0.8);
+		int initialHeight = (int) (SCREEN_SIZE.height * 0.5);
+		int initialWidth = (int) (SCREEN_SIZE.width * 0.5);
 		projectFrame.setSize(initialWidth, initialHeight);
 		projectFrame.setLocation(10, 10);
 		projectFrame.setVisible(true);

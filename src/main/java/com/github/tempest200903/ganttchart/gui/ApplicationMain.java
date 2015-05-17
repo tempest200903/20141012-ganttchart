@@ -15,9 +15,9 @@ class ApplicationMain {
 	public static void main(String[] args) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		MainFrame mainFrame = new MainFrame("ProjectFrame");
-		mainFrame.setLocation(20, 20);
-		mainFrame.setSize((int) (screenSize.width * 0.9),
-				(int) (screenSize.height * 0.9));
+		mainFrame.setLocation(10, 10);
+		mainFrame.setSize((int) (screenSize.width * 0.6),
+				(int) (screenSize.height * 0.6));
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 	}

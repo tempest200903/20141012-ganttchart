@@ -3,6 +3,8 @@ package com.github.tempest200903.ganttchart.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,8 @@ import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 /**
  * タイムラインを描画するコンポーネント。
  * <p>
@@ -24,11 +28,11 @@ import com.google.common.collect.Lists;
  * @author tempest200903
  *
  */
-class TimelineChart extends JComponent {
+class TimelineChart extends JComponent implements PropertyChangeListener {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1L;
 
     @NonNull
@@ -42,7 +46,10 @@ class TimelineChart extends JComponent {
 
     TimelineChart(GanttEntity ganttEntity, TablePainter tablePainter) {
         super();
+
         this.ganttEntity = ganttEntity;
+        ganttEntity.addPropertyChangeListener(this);
+
         this.tablePainter = tablePainter;
         assert ganttEntity != null : "ganttEntity";
         ProjectEntity projectEntity = ganttEntity.getProjectEntity();
@@ -140,6 +147,7 @@ class TimelineChart extends JComponent {
         Rectangle currentPaintingBounds = previousPaintingBounds;
         for (int taskIndex = 0; taskIndex < taskEntityList.size(); taskIndex++) {
             TaskEntity taskEntity = taskEntityList.get(taskIndex);
+            System.out.println("taskEntity =: " + taskEntity);
             currentPaintingBounds = paintTaskEntity(g, currentPaintingBounds,
                     taskIndex, taskEntity);
         }
@@ -160,6 +168,15 @@ class TimelineChart extends JComponent {
         // TODO Auto-generated method stub
         System.out.println("zoomOut");
 
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        Object source = evt.getSource();
+        System.out.println("source =: " + source);
+        if (source instanceof TaskEntity) {
+            repaint();
+        }
     }
 
 }

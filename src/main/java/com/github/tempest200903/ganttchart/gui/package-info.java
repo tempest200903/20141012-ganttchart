@@ -20,6 +20,7 @@ package gui {
     ApplicationMain "1" o- "1" MainFrame
     MainFrame "1" o- "1" ProjectFrame
     ProjectFrame "1" o- "1..*" GanttFrame
+    ProjectFrame "1" o- "1..*" NetworkFrame
    
     ProjectFrame "1" o- "1" ProjectEntity
     GanttFrame "1" o- "1" GanttEntity
