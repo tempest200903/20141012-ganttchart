@@ -18,8 +18,6 @@ import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 import com.github.tempest200903.ganttchart.entity.TaskEntity;
 import com.google.common.collect.Lists;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 /**
  * タイムラインを描画するコンポーネント。
  * <p>

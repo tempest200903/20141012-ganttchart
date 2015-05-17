@@ -78,7 +78,7 @@ class TaskTable {
         initialzeColumn(table0, headerValueList);
         initialzeRow(table0, taskEntityList);
         // #4 predecessor を変更したら TimelineChart を再描画する。
-        table0.getModel().addTableModelListener(new MyTableModelListener());
+        table0.getModel().addTableModelListener(new TaskTableTableModelListener());
         return table0;
     }
 
@@ -159,7 +159,7 @@ class TaskTable {
         return s.toString();
     }
 
-    class MyTableModelListener implements TableModelListener {
+    class TaskTableTableModelListener implements TableModelListener {
 
         @Override
         public void tableChanged(TableModelEvent e) {

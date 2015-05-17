@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import static org.junit.Assert.assertThat;
 
-public class GanttTableTest {
+public class TaskTableTest {
 
     private static Date createStartDate() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());

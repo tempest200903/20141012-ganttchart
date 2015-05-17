@@ -47,3 +47,26 @@ package gui {
 @enduml
  */
 
+/*
+https://github.com/tempest200903/20141012-ganttchart/issues/4
+predecessor を変更したら TimelineChart を再描画する。 · Issue #4 · tempest200903/20141012-ganttchart
+@startuml{plantuml_seq_sample.png}
+title シーケンス図
+
+activate JTable
+JTable -> TaskTableTableModelListener : tableChanged
+
+activate TaskTableTableModelListener
+TaskTableTableModelListener -> TaskEntity : setDuration
+
+activate TaskEntity
+TaskEntity -> GanttEntity : propertyChange
+
+activate GanttEntity 
+GanttEntity -> TimelineChart : propertyChange
+
+activate TimelineChart  
+TimelineChart -> TimelineChart : repaint
+
+@enduml
+*/

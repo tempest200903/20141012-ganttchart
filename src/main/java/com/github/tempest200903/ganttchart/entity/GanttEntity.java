@@ -98,6 +98,11 @@ public class GanttEntity implements PropertyChangeListener {
         changes.addPropertyChangeListener(l);
     }
 
+    void addTaskEntity(TaskEntity taskEntity) {
+        taskEntityList.add(taskEntity);
+        taskEntity.addPropertyChangeListener(this);
+    }
+
     TaskEntity createSampleTaskEntity() {
         String name = "task" + System.currentTimeMillis();
         TaskConstraintType constraintType = new TaskConstraintTypeAsSoonAsPossible();
@@ -109,9 +114,9 @@ public class GanttEntity implements PropertyChangeListener {
         return taskEntity;
     }
 
-    void addTaskEntity(TaskEntity taskEntity) {
-        taskEntityList.add(taskEntity);
-        taskEntity.addPropertyChangeListener(this);
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        changes.firePropertyChange(evt);
     }
 
     /**
@@ -129,11 +134,6 @@ public class GanttEntity implements PropertyChangeListener {
         builder.append(taskEntityList);
         builder.append("]");
         return builder.toString();
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        changes.firePropertyChange(evt);
     }
 
 }
