@@ -50,68 +50,80 @@ import com.google.common.collect.Lists;
 @Data
 public class ProjectEntity {
 
-	private static List<GanttEntity> createGanttEntityList() {
-		GanttEntity ganttEntity = GanttEntity.createSampleGanttEntity();
-		List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
-		return ganttEntityList;
-	}
+    private static List<GanttEntity> createGanttEntityList() {
+        GanttEntity ganttEntity = GanttEntity.createSampleGanttEntity();
+        List<GanttEntity> ganttEntityList = Lists.newArrayList(ganttEntity);
+        return ganttEntityList;
+    }
 
-	static Date createStartDate() {
-		Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-		calendar.set(2014, 2, 3); // 2014年03月03日 月曜日
-		Date startDate = calendar.getTime();
-		return startDate;
-	}
+    public static ProjectEntity createSampleProjectEntity() {
+        String name = "project1";
+        Date startDate = ProjectEntity.createStartDate();
+        List<GanttEntity> ganttEntityList = createGanttEntityList();
+        ProjectEntity projectEntity = new ProjectEntity(name, startDate,
+                ganttEntityList);
+        return projectEntity;
+    }
 
-	public static ProjectEntity createSampleProjectEntity() {
-		String name = "project1";
-		Date startDate = ProjectEntity.createStartDate();
-		List<GanttEntity> ganttEntityList = createGanttEntityList();
-		ProjectEntity projectEntity = new ProjectEntity(name, startDate,
-				ganttEntityList);
-		return projectEntity;
-	}
+    static Date createStartDate() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.set(2014, 2, 3); // 2014年03月03日 月曜日
+        Date startDate = calendar.getTime();
+        return startDate;
+    }
 
-	/**
-	 * 名前。
-	 */
-	@NonNull
-	public String name;
+    /**
+     * ガント。
+     */
+    @NonNull
+    public List<GanttEntity> ganttEntityList;
 
-	/**
-	 * 開始日付。
-	 */
-	@NonNull
-	public Date startDate;
+    /**
+     * 名前。
+     */
+    @NonNull
+    public String name;
 
-	/**
-	 * ガント。
-	 */
-	@NonNull
-	public List<GanttEntity> ganttEntityList;
+    /**
+     * 開始日付。
+     */
+    @NonNull
+    public Date startDate;
 
-	public ProjectEntity(String name, Date startDate,
-			List<GanttEntity> ganttEntityList) {
-		super();
-		this.name = name;
-		this.startDate = startDate;
-		this.ganttEntityList = ganttEntityList;
-		for (GanttEntity ganttEntity : ganttEntityList) {
-			ganttEntity.setProjectEntity(this);
-		}
-	}
+    public ProjectEntity() {
+        super();
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ProjectEntity [name=");
-		builder.append(name);
-		// builder.append(", startDate=");
-		// builder.append(startDate);
-		// builder.append(", ganttEntityList=");
-		// builder.append(ganttEntityList);
-		builder.append("]");
-		return builder.toString();
-	}
+    public ProjectEntity(String name, Date startDate,
+            List<GanttEntity> ganttEntityList) {
+        super();
+        this.name = name;
+        this.startDate = startDate;
+        this.ganttEntityList = ganttEntityList;
+        for (GanttEntity ganttEntity : ganttEntityList) {
+            ganttEntity.setProjectEntity(this);
+        }
+    }
+
+    /**
+     * DSL でエクスポートする · Issue #8 · tempest200903/20141012-ganttchart
+     */
+    public void save() {
+        ganttEntityList.forEach(GanttEntity::save);
+    }
+
+    @Override
+    public String toString() {
+        // TODO ReflectionToStringBuilder を使う。
+        StringBuilder builder = new StringBuilder();
+        builder.append("ProjectEntity [name=");
+        builder.append(name);
+        // builder.append(", startDate=");
+        // builder.append(startDate);
+        // builder.append(", ganttEntityList=");
+        // builder.append(ganttEntityList);
+        builder.append("]");
+        return builder.toString();
+    }
 
 }

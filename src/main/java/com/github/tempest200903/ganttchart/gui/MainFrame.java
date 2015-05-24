@@ -27,7 +27,7 @@ class MainFrame extends JFrame {
 
 	public MainFrame(String title) throws HeadlessException {
 		super(title);
-		initialize();
+		initializeContainer();
 	}
 
 	private JDesktopPane createDesktop() {
@@ -44,8 +44,8 @@ class MainFrame extends JFrame {
 
 	private ProjectFrame createProjectFrame(ProjectEntity projectEntity) {
 		ProjectFrame projectFrame = new ProjectFrame(projectEntity);
-		int initialHeight = (int) (SCREEN_SIZE.height * 0.5);
-		int initialWidth = (int) (SCREEN_SIZE.width * 0.5);
+		int initialHeight = (int) (SCREEN_SIZE.height * 0.6);
+		int initialWidth = (int) (SCREEN_SIZE.width * 0.6);
 		projectFrame.setSize(initialWidth, initialHeight);
 		projectFrame.setLocation(10, 10);
 		projectFrame.setVisible(true);
@@ -54,7 +54,7 @@ class MainFrame extends JFrame {
 		return projectFrame;
 	}
 
-	private void initialize() {
+	private void initializeContainer() {
 		JDesktopPane desktop = createDesktop();
 		getContentPane().add(desktop);
 	}

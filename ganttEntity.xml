@@ -10,6 +10,12 @@
      <void property="name">
       <string>task0</string>
      </void>
+     <void property="number">
+      <int>-1</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
+     </void>
     </object>
    </void>
    <void method="add">
@@ -19,6 +25,9 @@
      </void>
      <void property="name">
       <string>task1</string>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
      </void>
     </object>
    </void>
@@ -30,6 +39,12 @@
      <void property="name">
       <string>task2</string>
      </void>
+     <void property="number">
+      <int>1</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
+     </void>
     </object>
    </void>
    <void method="add">
@@ -39,6 +54,12 @@
      </void>
      <void property="name">
       <string>task3</string>
+     </void>
+     <void property="number">
+      <int>2</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
      </void>
     </object>
    </void>
@@ -50,6 +71,12 @@
      <void property="name">
       <string>task4</string>
      </void>
+     <void property="number">
+      <int>3</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
+     </void>
     </object>
    </void>
    <void method="add">
@@ -59,6 +86,12 @@
      </void>
      <void property="name">
       <string>task5</string>
+     </void>
+     <void property="number">
+      <int>4</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
      </void>
     </object>
    </void>
@@ -70,6 +103,12 @@
      <void property="name">
       <string>task6</string>
      </void>
+     <void property="number">
+      <int>5</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
+     </void>
     </object>
    </void>
    <void method="add">
@@ -79,6 +118,12 @@
      </void>
      <void property="name">
       <string>task7</string>
+     </void>
+     <void property="number">
+      <int>6</int>
+     </void>
+     <void property="taskCalendar">
+      <object class="com.github.tempest200903.ganttchart.entity.TaskCalendarEntity"/>
      </void>
     </object>
    </void>

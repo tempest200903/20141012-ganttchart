@@ -130,6 +130,10 @@ public class TaskEntity {
         changes.addPropertyChangeListener(l);
     }
 
+    public PropertyChangeSupport getChanges() {
+        return changes;
+    }
+
     public Date getFinishDate() {
         Date date = constraintType.getFinishDate(this);
         assert date != null;
@@ -146,6 +150,10 @@ public class TaskEntity {
         return date;
     }
 
+    public int getWorkTime() {
+        return workTime;
+    }
+
     /**
      * リスナの削除を行います.<br/>
      * @param l 削除するリスナ
@@ -154,10 +162,46 @@ public class TaskEntity {
         changes.removePropertyChangeListener(l);
     }
 
+    public void setChanges(PropertyChangeSupport changes) {
+        this.changes = changes;
+    }
+
+    public void setConstraintDate(Date constraintDate) {
+        this.constraintDate = constraintDate;
+    }
+
+    public void setConstraintType(TaskConstraintType constraintType) {
+        this.constraintType = constraintType;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
     public void setDuration(long newValue) {
         Object oldValue = duration;
         duration = newValue;
         changes.firePropertyChange("duration", oldValue, newValue);
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setPredecessorList(List<TaskDependencyEntity> predecessorList) {
+        this.predecessorList = predecessorList;
+    }
+
+    public void setSuccessorList(List<TaskDependencyEntity> successorList) {
+        this.successorList = successorList;
+    }
+
+    public void setTaskCalendar(TaskCalendarEntity taskCalendar) {
+        this.taskCalendar = taskCalendar;
+    }
+
+    public void setWorkTime(int workTime) {
+        this.workTime = workTime;
     }
 
     @Override

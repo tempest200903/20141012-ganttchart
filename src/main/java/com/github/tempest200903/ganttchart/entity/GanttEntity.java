@@ -4,6 +4,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.beans.XMLEncoder;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -12,6 +14,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -24,6 +29,8 @@ import lombok.NonNull;
  */
 @Data
 public class GanttEntity implements PropertyChangeListener {
+
+    static Logger MY_LOGGER = LoggerFactory.getLogger(GanttEntity.class);
 
     static Calendar sampleCalendar = Calendar
             .getInstance(TimeZone.getDefault());
@@ -125,6 +132,24 @@ public class GanttEntity implements PropertyChangeListener {
      */
     public void removePropertyChangeListener(PropertyChangeListener l) {
         changes.removePropertyChangeListener(l);
+    }
+
+    /**
+     * DSL でエクスポートする · Issue #8 · tempest200903/20141012-ganttchart
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     */
+    void save() {
+        MY_LOGGER.debug("save");
+        File file = new File("save.xml");
+        // @thorws IOException
+        try (OutputStream out = new FileOutputStream(file)) {
+            XMLEncoder xmlEncoder = new XMLEncoder(out);
+            xmlEncoder.writeObject(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            MY_LOGGER.debug("save", e);
+        }
     }
 
     @Override

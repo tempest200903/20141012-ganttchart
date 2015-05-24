@@ -14,20 +14,20 @@ import javax.swing.JFrame;
  */
 class ApplicationMain {
 
+    static Logger MY_LOGGER = LoggerFactory.getLogger(ApplicationMain.class);
+
     public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger(ApplicationMain.class);
-        logger.debug("Hello World debug");
-        logger.trace("Hello World trace");
-        logger.info("Hello World info");
-        logger.warn("Hello World warn");
-        logger.error("Hello World error");
-        System.exit(0);
+        MY_LOGGER.debug("Hello World debug");
+        MY_LOGGER.trace("Hello World trace");
+        MY_LOGGER.info("Hello World info");
+        MY_LOGGER.warn("Hello World warn");
+        MY_LOGGER.error("Hello World error");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        MainFrame mainFrame = new MainFrame("ProjectFrame");
+        MainFrame mainFrame = new MainFrame("Ganttchart");
         mainFrame.setLocation(10, 10);
-        mainFrame.setSize((int) (screenSize.width * 0.6),
-                (int) (screenSize.height * 0.6));
+        mainFrame.setSize((int) (screenSize.width * 0.7),
+                (int) (screenSize.height * 0.7));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(true);
     }

@@ -1,0 +1,52 @@
+- https://github.com/tempest200903/20141012-ganttchart/issues/10
+  - logging ライブラリを導入する · Issue #10 · tempest200903/20141012-ganttchart
+- http://treeapps.hatenablog.com/entry/2012/10/20/java%E3%81%AE%E3%83%AD%E3%82%AC%E3%83%BC%E3%81%8C%E5%A4%9A%E3%81%99%E3%81%8E%E3%81%A6%E8%A8%B3%E3%81%8C%E8%A7%A3%E3%82%89%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A7%E6%95%B4%E7%90%86%E3%81%97%E3%81%A6
+  - javaのロガーが多すぎて訳が解らないので整理してみました - 文系プログラマによるTIPSブログ
+  - インターフェース
+    - commons-logging, slf4j, など
+  - アダプター又はブリッジ
+    - jcl-over-slf4j.XXX.jar（commons-logging => slf4jに処理を移譲） など
+  - 実装
+    - java.util.logging (jul), log4j, logback など
+- 今回はどれを使うか？
+  - インターフェース
+    - slf4j
+      - http://www.slf4j.org/manual.html
+  - アダプター又はブリッジ
+    - http://dev.classmethod.jp/server-side/java/slf4j-logback/
+      - 特徴的な機能としてはpropertyファイルからの値の取得やgroovyファ
+        イルを設定ファイルとして利用することが可能です。ユーザや環境固
+        有の設定をpropertyファイルに外出しすることでLoggingの設定を開発
+        者毎にログレベルを変更したりが自由にできるようになります。
+      - logのローテート設定でzipなどへ圧縮して別のディレクトリに移す機
+        能です。 これの機能を使えば開発中にdebugログがディスクを圧迫す
+        ることもなく便利です。さらに、移動先をs3fs等でマウントしておけ
+        ばそのままS3へアップロードすることも可能になります。
+  - 実装
+    - http://logback.qos.ch/
+      - logback を使っているプロジェクト例: Apache Camel, Dropwizard, Play Framework, Sonar, Zabbix など。
+- [[F:\goat-pc-data\ecworkspace\20141012-ganttchart\pom.xml]]
+  - http://dev.classmethod.jp/server-side/java/slf4j-logback/
+    から dependency を転記する。
+- 実行する。
+  #+BEGIN_QUOTE
+  SLF4J: Class path contains multiple SLF4J bindings.
+  SLF4J: Found binding in [jar:file:/C:/Users/simei/.m2/repository/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+  SLF4J: Found binding in [jar:file:/C:/Users/simei/.m2/repository/org/slf4j/slf4j-simple/1.7.12/slf4j-simple-1.7.12.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+  SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+  SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+  #+END_QUOTE
+- 転記する際、 dependency 4個とも転記していたのは余分だった。1個だけ転記すればよい。
+- 今回は logback を使うので、 logback dependency のみ記す。
+- logback.xml
+  - http://dev.classmethod.jp/server-side/java/slf4j-logback/
+    からコピーしてくる。
+  - src/main/resources/logback.xml に配置する。
+- これで解消した。
+- 実行すると、 ./logs ディレクトリにファイル
+  debug.log
+  error.log
+  info.log
+  perf4j.log
+  が出力される。
+- カスタマイズするには logback.xml の記述をいじればいいはず。

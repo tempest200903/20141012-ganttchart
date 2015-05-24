@@ -1,49 +1,82 @@
 package com.github.tempest200903.ganttchart.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.text.TextAction;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.tempest200903.ganttchart.entity.GanttEntity;
 import com.github.tempest200903.ganttchart.entity.ProjectEntity;
 
 class ProjectFrame extends JInternalFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    static Logger MY_LOGGER = LoggerFactory.getLogger(ProjectFrame.class);
 
-	private ProjectEntity projectEntity;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public ProjectFrame(ProjectEntity projectEntity) {
-		super();
-		this.projectEntity = projectEntity;
-		setTitle(this.projectEntity.getName());
-		initialize();
-	}
+    private ProjectEntity projectEntity;
 
-	private JDesktopPane createDesktop() {
-		JDesktopPane desktop = new JDesktopPane();
-		desktop.setLayout(new BorderLayout());
+    private TextAction saveAction = new TextAction("save") {
+        /** . */
+        private static final long serialVersionUID = 1L;
 
-		List<GanttEntity> list = this.projectEntity.getGanttEntityList();
-		for (GanttEntity ganttEntity : list) {
-			GanttFrame ganttFrame = new GanttFrame(ganttEntity);
-			ganttFrame.setResizable(true);
-			ganttFrame.setVisible(true);
-			desktop.add(ganttFrame);
-		}
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MY_LOGGER
+                    .debug("saveAction.new TextAction() {...}.actionPerformed(ActionEvent) "
+                            + e.toString());
+            projectEntity.save();
+        }
+    };
 
-		return desktop;
-	}
+    public ProjectFrame(ProjectEntity projectEntity) {
+        super();
+        this.projectEntity = projectEntity;
+        initializeContainer();
+    }
 
-	private void initialize() {
-		JDesktopPane desktop = createDesktop();
-		getContentPane().add(desktop);
+    private JDesktopPane createDesktop() {
+        JDesktopPane desktop = new JDesktopPane();
+        desktop.setLayout(new BorderLayout());
 
-	}
+        List<GanttEntity> list = this.projectEntity.getGanttEntityList();
+        for (GanttEntity ganttEntity : list) {
+            GanttFrame ganttFrame = new GanttFrame(ganttEntity);
+            ganttFrame.setResizable(true);
+            ganttFrame.setVisible(true);
+            desktop.add(ganttFrame);
+        }
+
+        return desktop;
+    }
+
+    private JMenuBar createMenuBar() {
+        // DSL でエクスポートする · Issue #8 · tempest200903/20141012-ganttchart
+        JMenuBar menuBar = new JMenuBar();
+        JMenuItem saveMenu = new JMenuItem(saveAction);
+        menuBar.add(saveMenu);
+        return menuBar;
+    }
+
+    private void initializeContainer() {
+        setTitle(this.projectEntity.getName());
+        JDesktopPane desktop = createDesktop();
+        getContentPane().add(desktop);
+
+        // DSL でエクスポートする · Issue #8 · tempest200903/20141012-ganttchart
+        JMenuBar menubar = createMenuBar();
+        setJMenuBar(menubar);
+    }
 
 }
